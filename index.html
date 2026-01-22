@@ -1,133 +1,107 @@
-<div id="bzs-ultimate-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 0; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
+<div id="bzs-ultra-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 0; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;700;900&display=swap');
     
-    #bzs-ultimate-hub * { box-sizing: border-box; }
-    #bzs-ultimate-hub .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
+    #bzs-ultra-hub * { box-sizing: border-box; }
+    #bzs-ultra-hub .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
     
-    #bzs-ultimate-hub {
-      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://images.evetech.net/banners/6_1280.jpg') !important;
-      background-size: cover !important;
-      background-attachment: fixed !important;
+    #bzs-ultra-hub {
+      background-image: linear-gradient(rgba(0,0,0,0.94), rgba(0,0,0,0.94)), url('https://images.evetech.net/banners/6_1280.jpg') !important;
+      background-size: cover !important; background-attachment: fixed !important;
     }
 
-    /* FULL WIDTH SECTIONS */
-    #bzs-ultimate-hub .hero-banner {
-      height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      border-bottom: 2px solid #dc2626;
-      background: linear-gradient(to bottom, transparent, rgba(220, 38, 38, 0.1));
+    #bzs-ultra-hub .hero-banner {
+      height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; border-bottom: 3px solid #dc2626;
+      background: linear-gradient(to bottom, transparent, rgba(220, 38, 38, 0.15));
     }
 
-    #bzs-ultimate-hub .content-max {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 60px 20px;
+    #bzs-ultra-hub .content-max { max-width: 1500px; margin: 0 auto; padding: 80px 20px; }
+
+    #bzs-ultra-hub .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 80px; }
+
+    #bzs-ultra-hub .panel { 
+      background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; 
+      border-top: 5px solid #dc2626 !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important;
     }
 
-    /* CARDS & PANELS */
-    #bzs-ultimate-hub .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 30px;
-      margin-bottom: 60px;
+    #bzs-ultra-hub .feature-img { width: 100%; height: 280px; object-fit: cover; border-bottom: 2px solid #dc2626; }
+
+    #bzs-ultra-hub .panel-body { padding: 40px; }
+
+    /* MISSION CLOCK SECTION */
+    #bzs-ultra-hub .ops-briefing {
+      background: #dc2626; color: #fff; padding: 40px; margin-bottom: 80px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 0 50px rgba(220, 38, 38, 0.3);
     }
 
-    #bzs-ultimate-hub .panel { 
-      background: rgba(15, 15, 15, 0.98) !important; 
-      border: 1px solid #222 !important; 
-      border-top: 5px solid #dc2626 !important;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9) !important;
-      transition: transform 0.3s ease;
+    #bzs-ultra-hub .recruitment-footer {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      padding: 80px; background: rgba(15, 15, 15, 0.9); border: 1px solid #333;
     }
 
-    #bzs-ultimate-hub .panel:hover { transform: translateY(-10px); }
-
-    #bzs-ultimate-hub .feature-img { 
-      width: 100%; 
-      height: 250px; 
-      object-fit: cover; 
-      border-bottom: 1px solid #333;
-    }
-
-    #bzs-ultimate-hub .panel-body { padding: 30px; }
-
-    /* RECRUITMENT SPLIT */
-    #bzs-ultimate-hub .recruitment-footer {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      background: rgba(220, 38, 38, 0.05);
-      padding: 60px;
-      border: 1px solid #333;
-    }
-
-    /* FORM STYLING */
-    #bzs-ultimate-hub input, #bzs-ultimate-hub textarea, #bzs-ultimate-hub select { 
+    #bzs-ultra-hub input, #bzs-ultra-hub textarea, #bzs-ultra-hub select { 
       width: 100% !important; background: #000 !important; border: 1px solid #444 !important; 
-      color: #fff !important; padding: 18px !important; margin-bottom: 20px !important; 
-      font-family: 'Inter', sans-serif !important;
+      color: #fff !important; padding: 20px !important; margin-bottom: 20px !important;
     }
 
-    #bzs-ultimate-hub button { 
+    #bzs-ultra-hub button { 
       background: #dc2626 !important; color: #fff !important; width: 100% !important; 
       padding: 25px !important; border: none !important; font-weight: 900 !important; 
-      cursor: pointer; text-transform: uppercase; font-size: 18px;
+      cursor: pointer; text-transform: uppercase; font-size: 20px;
     }
 
-    #bzs-ultimate-hub button:hover { background: #fff !important; color: #000 !important; }
+    #bzs-ultra-hub button:hover { background: #fff !important; color: #000 !important; }
 
-    #bzs-ultimate-hub .status-bar {
-      display: inline-block;
-      padding: 5px 15px;
-      background: #dc2626;
-      font-size: 10px;
-      font-weight: 900;
-      margin-bottom: 15px;
-    }
+    #bzs-ultra-hub .red-pill { display: inline-block; padding: 5px 15px; background: #dc2626; font-size: 11px; font-weight: 900; margin-bottom: 20px; }
 
     @media (max-width: 1100px) {
-      #bzs-ultimate-hub .main-grid, #bzs-ultimate-hub .recruitment-footer { grid-template-columns: 1fr; }
+      #bzs-ultra-hub .main-grid, #bzs-ultra-hub .recruitment-footer, #bzs-ultra-hub .ops-briefing { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 30px;}
     }
   </style>
 
   <div class="hero-banner">
-    <h1 class="minmatar-font" style="font-size: clamp(40px, 10vw, 90px); margin: 0; color: white; text-shadow: 0 0 40px rgba(220, 38, 38, 0.9);">BLACKZONE SYNDICATE</h1>
-    <p style="letter-spacing: 15px; color: #dc2626; font-weight: 900; font-size: clamp(12px, 2vw, 18px); margin-top: 20px;">ALLIANCE SUPREME COMMAND // JALLEN51293</p>
+    <h1 class="minmatar-font" style="font-size: clamp(40px, 10vw, 100px); margin: 0; color: white;">BLACKZONE SYNDICATE</h1>
+    <p style="letter-spacing: 15px; color: #dc2626; font-weight: 900; font-size: 18px; margin-top: 20px;">SUPREME ALLIANCE COMMAND</p>
   </div>
 
   <div class="content-max">
     
+    <div class="ops-briefing">
+      <div>
+        <h2 class="minmatar-font" style="margin: 0; font-size: 30px;">MAIN ALLIANCE FLEET</h2>
+        <p style="margin: 5px 0 0 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Deployment: Every Saturday @ 20:00 EST</p>
+      </div>
+      <div class="minmatar-font" style="font-size: 40px; border: 3px solid #fff; padding: 10px 30px;">RED ALERT</div>
+    </div>
+
     <div class="main-grid">
       
       <div class="panel">
         <img src="http://googleusercontent.com/profile/picture/4" class="feature-img">
         <div class="panel-body">
-          <div class="status-bar">ECONOMIC WING</div>
-          <h3 class="minmatar-font" style="color:#fff; margin-bottom:15px;">Homefront Ops</h3>
-          <p style="color:#888; font-size:14px;">We coordinate high-speed Homefront squads to maintain liquid ISK reserves. This allows the Syndicate to provide SRP (Ship Replacement) and fleet funding for all member pilots.</p>
+          <div class="red-pill">FUNDING</div>
+          <h3 class="minmatar-font" style="color:#fff;">Homefront Ops</h3>
+          <p style="color:#888;">Coordinated high-speed Homefront squads for maximum ISK/hour. We fund the war so you can fly the ships.</p>
         </div>
       </div>
 
       <div class="panel">
         <img src="http://googleusercontent.com/profile/picture/3" class="feature-img">
         <div class="panel-body">
-          <div class="status-bar">EXPLORATION WING</div>
-          <h3 class="minmatar-font" style="color:#fff; margin-bottom:15px;">DED Combat Sites</h3>
-          <p style="color:#888; font-size:14px;">Our scouts are constantly active in the warzone, locating high-tier DED complexes. We run these as a group to secure faction loot and deadspace modules to elite-fit our fleet doctrines.</p>
+          <div class="red-pill">SCOUTING</div>
+          <h3 class="minmatar-font" style="color:#fff;">DED Combat Sites</h3>
+          <p style="color:#888;">Daily scouting for high-tier DED complexes. We run sites as a group to secure faction loot for fleet doctrines.</p>
         </div>
       </div>
 
       <div class="panel">
         <img src="http://googleusercontent.com/profile/picture/2" class="feature-img">
         <div class="panel-body">
-          <div class="status-bar">PVP WING</div>
-          <h3 class="minmatar-font" style="color:#fff; margin-bottom:15px;">Faction Warfare</h3>
-          <p style="color:#888; font-size:14px;">The Syndicate's ultimate purpose. We operate aggressive combat fleets in the Minmatar/Amarr warzone, securing systems and crushing enemy militia through superior tactics and funding.</p>
+          <div class="red-pill">WARFARE</div>
+          <h3 class="minmatar-font" style="color:#fff;">Faction War</h3>
+          <p style="color:#888;">Aggressive Faction Warfare operations in the Minmatar/Amarr warzone. Total system domination is the only goal.</p>
         </div>
       </div>
 
@@ -135,29 +109,32 @@
 
     <div class="recruitment-footer">
       <div>
-        <h2 class="minmatar-font" style="font-size: 36px; color: #fff; margin-bottom: 20px;">Join the <span style="color:#dc2626">Syndicate</span></h2>
-        <p style="font-size: 18px; color: #aaa; margin-bottom: 30px;">
-          The Blackzone Syndicate is more than an alliance; it is a war machine. We are currently accepting applications from **Independent Corporations** looking for a home and **Individual Pilots** hungry for blood.
+        <h2 class="minmatar-font" style="font-size: 45px; color: #fff; margin-bottom: 25px;">SECURE YOUR <span style="color:#dc2626">LEGACY</span></h2>
+        <p style="font-size: 20px; color: #aaa; margin-bottom: 40px;">
+          The Syndicate operates as a singular unit. Whether you are a lone pilot or a corporation lead, your integration into our command structure starts here.
         </p>
-        <ul style="color: #888; padding-left: 20px; line-height: 2;">
-          <li>Full Ship Replacement Program (SRP)</li>
-          <li>Coordinated PVE for 100M+ ISK/hour</li>
-          <li>Daily PVP Fleets across all timezones</li>
-          <li>Lead by Veteran Command</li>
-        </ul>
+        <div style="background: #111; padding: 30px; border-left: 5px solid #dc2626;">
+          <p style="margin: 0; color: #fff; font-weight: 700;">ALLIANCE BENEFITS:</p>
+          <ul style="color: #888; margin-top: 15px; line-height: 2;">
+            <li>Full Ship Replacement Program (SRP)</li>
+            <li>Alliance-Wide Logistics & Hauling</li>
+            <li>Shared Intel & Bookmark Networks</li>
+            <li>Organized PVE for 100M+ ISK/hour</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="panel" style="margin: 0; border-top: 4px solid #fff !important;">
+      <div class="panel" style="margin: 0; border-top: 5px solid #fff !important;">
         <div class="panel-body">
-          <h3 class="minmatar-font" style="margin-bottom: 25px;">Transmission Terminal</h3>
-          <form id="ultimateForm">
+          <h3 class="minmatar-font" style="margin-bottom: 30px; font-size: 24px;">ENLISTMENT UPLINK</h3>
+          <form id="ultraForm">
             <select name="type">
-              <option value="Corp Joining Alliance">Corporation Application</option>
-              <option value="Pilot Joining Syndicate">Individual Pilot Application</option>
+              <option value="Corporation Application">Corporation (Alliance Enlistment)</option>
+              <option value="Pilot Application">Individual Pilot (Syndicate Enlistment)</option>
             </select>
-            <input type="text" name="name" placeholder="Entity Name / Ticker" required>
-            <textarea name="notes" rows="6" placeholder="Strategic background and mission goals..."></textarea>
-            <button type="submit" id="submitBtn">Transmit to Command</button>
+            <input type="text" name="name" placeholder="Pilot Name / Corp Ticker" required>
+            <textarea name="notes" rows="8" placeholder="Combat history and ship specialties..."></textarea>
+            <button type="submit" id="submitBtn">Transmit to jallen51293</button>
           </form>
         </div>
       </div>
@@ -166,7 +143,7 @@
   </div>
 
   <script>
-    document.getElementById('ultimateForm').addEventListener('submit', async (e) => {
+    document.getElementById('ultraForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.innerText = "ESTABLISHING UPLINK...";
@@ -179,22 +156,22 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             embeds: [{
-              title: "🚩 NEW SYNDICATE COMMAND TRANSMISSION",
+              title: "🚀 NEW SYNDICATE STRATEGIC APPLICATION",
               color: 15548997, 
               fields: [
                 { name: "Unit Type", value: fd.get("type"), inline: true },
-                { name: "Identity", value: fd.get("name"), inline: true },
-                { name: "Dossier", value: fd.get("notes") || "No history provided." }
+                { name: "Sender", value: fd.get("name"), inline: true },
+                { name: "Dossier", value: fd.get("notes") || "No notes." }
               ],
               footer: { text: "Blackzone Syndicate Secure Hub" },
               timestamp: new Date().toISOString()
             }]
           })
         });
-        alert("Transmission Success. Commander jallen51293 has been notified.");
+        alert("Transmission Success. Supreme Command has been alerted.");
         e.target.reset();
       } catch (err) { alert("Comms Failure."); }
-      btn.innerText = "Transmit to Command";
+      btn.innerText = "Transmit to jallen51293";
     });
   </script>
 </div>
