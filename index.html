@@ -1,152 +1,167 @@
-<div id="bzs-ultra-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 0; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
+<div id="bzs-master-portal" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 0; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;700;900&display=swap');
     
-    #bzs-ultra-hub * { box-sizing: border-box; }
-    #bzs-ultra-hub .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
+    #bzs-master-portal * { box-sizing: border-box; }
+    #bzs-master-portal .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
     
-    #bzs-ultra-hub {
-      background-image: linear-gradient(rgba(0,0,0,0.94), rgba(0,0,0,0.94)), url('https://images.evetech.net/banners/6_1280.jpg') !important;
-      background-size: cover !important; background-attachment: fixed !important;
+    /* BACKGROUND SETTINGS */
+    #bzs-master-portal { 
+      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1') !important; 
+      background-size: cover !important; 
+      background-position: center !important;
+      background-attachment: fixed !important; 
     }
 
-    #bzs-ultra-hub .hero-banner {
-      height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; border-bottom: 3px solid #dc2626;
-      background: linear-gradient(to bottom, transparent, rgba(220, 38, 38, 0.15));
-    }
+    /* TOP NAVIGATION & CLOCKS */
+    #bzs-master-portal .top-nav { background: #dc2626; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; border-bottom: 2px solid #fff; }
+    #bzs-master-portal .time-block { display: flex; gap: 30px; align-items: center; }
+    #bzs-master-portal .clock-label { font-size: 10px; font-weight: 900; display: block; margin-bottom: -5px; opacity: 0.8; }
+    #bzs-master-portal .discord-btn { background: #fff; color: #dc2626; padding: 10px 25px; text-decoration: none; font-weight: 900; font-size: 11px; border-radius: 2px; text-transform: uppercase; transition: 0.2s; }
+    #bzs-master-portal .discord-btn:hover { background: #000; color: #fff; }
 
-    #bzs-ultra-hub .content-max { max-width: 1500px; margin: 0 auto; padding: 80px 20px; }
+    #bzs-master-portal .content-max { max-width: 1400px; margin: 0 auto; padding: 60px 20px; }
+    
+    /* ACTIVITY PANELS */
+    #bzs-master-portal .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
+    #bzs-master-portal .panel { background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; border-top: 5px solid #dc2626 !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important; overflow: hidden; }
+    #bzs-master-portal .feature-img { width: 100%; height: 320px; object-fit: cover; border-bottom: 2px solid #dc2626; transition: 0.5s; }
+    #bzs-master-portal .panel:hover .feature-img { filter: brightness(1.2) contrast(1.1); transform: scale(1.05); }
+    #bzs-master-portal .panel-body { padding: 30px; }
 
-    #bzs-ultra-hub .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 80px; }
+    /* RULES GRID */
+    #bzs-master-portal .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px; }
+    #bzs-master-portal .rule-card { background: rgba(20, 20, 20, 0.8); border-left: 4px solid #dc2626; padding: 25px; }
+    #bzs-master-portal .rule-card h4 { color: #dc2626; margin: 0 0 10px 0; font-size: 18px; }
 
-    #bzs-ultra-hub .panel { 
-      background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; 
-      border-top: 5px solid #dc2626 !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important;
-    }
+    /* RECRUITMENT FORM */
+    #bzs-master-portal .app-panel { background: rgba(12, 12, 12, 0.98); border: 1px solid #222; border-top: 5px solid #fff; padding: 50px; }
+    #bzs-master-portal input, #bzs-master-portal textarea, #bzs-master-portal select { width: 100% !important; background: #000 !important; border: 1px solid #444 !important; color: #fff !important; padding: 15px !important; margin-bottom: 20px !important; font-family: 'Inter', sans-serif; }
+    #bzs-master-portal button { background: #dc2626 !important; color: #fff !important; width: 100% !important; padding: 20px !important; border: none !important; font-weight: 900 !important; cursor: pointer; text-transform: uppercase; font-size: 18px; }
 
-    #bzs-ultra-hub .feature-img { width: 100%; height: 280px; object-fit: cover; border-bottom: 2px solid #dc2626; }
-
-    #bzs-ultra-hub .panel-body { padding: 40px; }
-
-    /* MISSION CLOCK SECTION */
-    #bzs-ultra-hub .ops-briefing {
-      background: #dc2626; color: #fff; padding: 40px; margin-bottom: 80px;
-      display: flex; justify-content: space-between; align-items: center;
-      box-shadow: 0 0 50px rgba(220, 38, 38, 0.3);
-    }
-
-    #bzs-ultra-hub .recruitment-footer {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-      padding: 80px; background: rgba(15, 15, 15, 0.9); border: 1px solid #333;
-    }
-
-    #bzs-ultra-hub input, #bzs-ultra-hub textarea, #bzs-ultra-hub select { 
-      width: 100% !important; background: #000 !important; border: 1px solid #444 !important; 
-      color: #fff !important; padding: 20px !important; margin-bottom: 20px !important;
-    }
-
-    #bzs-ultra-hub button { 
-      background: #dc2626 !important; color: #fff !important; width: 100% !important; 
-      padding: 25px !important; border: none !important; font-weight: 900 !important; 
-      cursor: pointer; text-transform: uppercase; font-size: 20px;
-    }
-
-    #bzs-ultra-hub button:hover { background: #fff !important; color: #000 !important; }
-
-    #bzs-ultra-hub .red-pill { display: inline-block; padding: 5px 15px; background: #dc2626; font-size: 11px; font-weight: 900; margin-bottom: 20px; }
-
-    @media (max-width: 1100px) {
-      #bzs-ultra-hub .main-grid, #bzs-ultra-hub .recruitment-footer, #bzs-ultra-hub .ops-briefing { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 30px;}
-    }
+    @media (max-width: 1100px) { .main-grid, .rules-grid, .top-nav { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 20px; } }
   </style>
 
-  <div class="hero-banner">
-    <h1 class="minmatar-font" style="font-size: clamp(40px, 10vw, 100px); margin: 0; color: white;">BLACKZONE SYNDICATE</h1>
-    <p style="letter-spacing: 15px; color: #dc2626; font-weight: 900; font-size: 18px; margin-top: 20px;">SUPREME ALLIANCE COMMAND</p>
+  <div class="top-nav">
+    <div class="time-block">
+        <div>
+            <span class="clock-label minmatar-font">Current EVE Time</span>
+            <span id="current-eve-clock" class="minmatar-font" style="font-size: 20px; color: #fff;">00:00:00</span>
+        </div>
+        <div style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 30px;">
+            <span class="clock-label minmatar-font">Fleet Deployment</span>
+            <span id="eve-fleet-timer" class="minmatar-font" style="font-size: 20px; color: #fff;">00D 00H 00M 00S</span>
+        </div>
+    </div>
+    <a href="https://discord.gg/v6M83zhBd9" target="_blank" class="discord-btn minmatar-font">Join Discord</a>
   </div>
 
   <div class="content-max">
     
-    <div class="ops-briefing">
-      <div>
-        <h2 class="minmatar-font" style="margin: 0; font-size: 30px;">MAIN ALLIANCE FLEET</h2>
-        <p style="margin: 5px 0 0 0; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Deployment: Every Saturday @ 20:00 EST</p>
-      </div>
-      <div class="minmatar-font" style="font-size: 40px; border: 3px solid #fff; padding: 10px 30px;">RED ALERT</div>
+    <div style="text-align: center; margin-bottom: 80px;">
+        <h1 class="minmatar-font" style="font-size: clamp(40px, 8vw, 90px); margin: 0; color: #fff; line-height: 1;">BLACKZONE SYNDICATE</h1>
+        <p style="letter-spacing: 12px; color: #dc2626; font-weight: 900; margin-top: 20px;">ALLIANCE SUPREME COMMAND</p>
     </div>
 
     <div class="main-grid">
-      
       <div class="panel">
-        <img src="http://googleusercontent.com/profile/picture/4" class="feature-img">
+        <img src="https://lh3.googleusercontent.com/d/1q4Sm-xccG73QA7sw57Z2TxSnjh49duNG" class="feature-img" alt="War Economy">
         <div class="panel-body">
-          <div class="red-pill">FUNDING</div>
           <h3 class="minmatar-font" style="color:#fff;">Homefront Ops</h3>
-          <p style="color:#888;">Coordinated high-speed Homefront squads for maximum ISK/hour. We fund the war so you can fly the ships.</p>
+          <p style="color:#888; font-size: 14px;">High-speed economic wings. We ensure the SRP wallet is always full and our pilots never fly broke.</p>
         </div>
       </div>
 
       <div class="panel">
-        <img src="http://googleusercontent.com/profile/picture/3" class="feature-img">
+        <img src="https://lh3.googleusercontent.com/d/1f125lkW085Aw8nCVdstRWwWUw0oGXSUI" class="feature-img" alt="Exploration">
         <div class="panel-body">
-          <div class="red-pill">SCOUTING</div>
-          <h3 class="minmatar-font" style="color:#fff;">DED Combat Sites</h3>
-          <p style="color:#888;">Daily scouting for high-tier DED complexes. We run sites as a group to secure faction loot for fleet doctrines.</p>
+          <h3 class="minmatar-font" style="color:#fff;">DED Hunting</h3>
+          <p style="color:#888; font-size: 14px;">Specialized exploration wing hunting high-tier combat sites and securing deadspace technology.</p>
         </div>
       </div>
 
       <div class="panel">
-        <img src="http://googleusercontent.com/profile/picture/2" class="feature-img">
+        <img src="https://lh3.googleusercontent.com/d/1cZor_BxlVIP-N4psTJq-NWW306X_92kw" class="feature-img" alt="Main Fleet">
         <div class="panel-body">
-          <div class="red-pill">WARFARE</div>
-          <h3 class="minmatar-font" style="color:#fff;">Faction War</h3>
-          <p style="color:#888;">Aggressive Faction Warfare operations in the Minmatar/Amarr warzone. Total system domination is the only goal.</p>
+          <h3 class="minmatar-font" style="color:#fff;">Main Fleet</h3>
+          <p style="color:#888; font-size: 14px;">Faction Warfare Supremacy. Official Alliance Fleets every Saturday at 01:00 EVE Time.</p>
         </div>
       </div>
-
     </div>
 
-    <div class="recruitment-footer">
-      <div>
-        <h2 class="minmatar-font" style="font-size: 45px; color: #fff; margin-bottom: 25px;">SECURE YOUR <span style="color:#dc2626">LEGACY</span></h2>
-        <p style="font-size: 20px; color: #aaa; margin-bottom: 40px;">
-          The Syndicate operates as a singular unit. Whether you are a lone pilot or a corporation lead, your integration into our command structure starts here.
-        </p>
-        <div style="background: #111; padding: 30px; border-left: 5px solid #dc2626;">
-          <p style="margin: 0; color: #fff; font-weight: 700;">ALLIANCE BENEFITS:</p>
-          <ul style="color: #888; margin-top: 15px; line-height: 2;">
-            <li>Full Ship Replacement Program (SRP)</li>
-            <li>Alliance-Wide Logistics & Hauling</li>
-            <li>Shared Intel & Bookmark Networks</li>
-            <li>Organized PVE for 100M+ ISK/hour</li>
+    <h3 class="minmatar-font" style="text-align: center; margin-bottom: 40px; color: #fff;">Alliance Directives</h3>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h4>1. Comms & Discord</h4>
+        <p style="color: #aaa; font-size: 14px;">Join the Discord server to receive mission pings. In-game voice is mandatory for fleet coordination.</p>
+      </div>
+      <div class="rule-card">
+        <h4>2. Ships are Ammunition</h4>
+        <p style="color: #aaa; font-size: 14px;">Do not fear loss. We provide Ship Replacement (SRP) for alliance doctrines to keep you in the warzone.</p>
+      </div>
+      <div class="rule-card">
+        <h4>3. Real Life First</h4>
+        <p style="color: #aaa; font-size: 14px;">RL always takes priority. We focus on quality gameplay on Saturdays, but play whenever you can.</p>
+      </div>
+      <div class="rule-card">
+        <h4>4. Support the Rookie</h4>
+        <p style="color: #aaa; font-size: 14px;">We were all new once. Ask questions, share fits, and help new pilots learn the Syndicate way.</p>
+      </div>
+    </div>
+
+    <div class="app-panel">
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
+        <div>
+          <h2 class="minmatar-font" style="font-size: 32px; color: #fff; margin-bottom: 20px;">SECURE ENLISTMENT</h2>
+          <p style="color: #888; margin-bottom: 25px;">The Syndicate is currently vetting both combat-focused corporations and independent pilots. Secure your place in New Eden's elite Minmatar force.</p>
+          <ul style="color: #dc2626; font-weight: 700; list-style: none; padding: 0; line-height: 2;">
+            <li>> Saturday Deployment: 01:00 EVE</li>
+            <li>> Active Homefront PVE Wings</li>
+            <li>> Secure Alliance Comms</li>
           </ul>
         </div>
-      </div>
-
-      <div class="panel" style="margin: 0; border-top: 5px solid #fff !important;">
-        <div class="panel-body">
-          <h3 class="minmatar-font" style="margin-bottom: 30px; font-size: 24px;">ENLISTMENT UPLINK</h3>
-          <form id="ultraForm">
-            <select name="type">
-              <option value="Corporation Application">Corporation (Alliance Enlistment)</option>
-              <option value="Pilot Application">Individual Pilot (Syndicate Enlistment)</option>
-            </select>
-            <input type="text" name="name" placeholder="Pilot Name / Corp Ticker" required>
-            <textarea name="notes" rows="8" placeholder="Combat history and ship specialties..."></textarea>
-            <button type="submit" id="submitBtn">Transmit to jallen51293</button>
-          </form>
-        </div>
+        <form id="masterBzsForm">
+          <select name="type">
+            <option value="Corporation Application">Corporation Enlistment</option>
+            <option value="Pilot Application">Individual Pilot Application</option>
+          </select>
+          <input type="text" name="name" placeholder="Character Name / Ticker" required>
+          <textarea name="notes" rows="4" placeholder="Brief history and ship specializations..."></textarea>
+          <button type="submit" id="submitBtn">Transmit to Command</button>
+        </form>
       </div>
     </div>
-
   </div>
 
   <script>
-    document.getElementById('ultraForm').addEventListener('submit', async (e) => {
+    function updateBzsClocks() {
+      const now = new Date();
+      // Current EVE Time
+      document.getElementById('current-eve-clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + 
+        now.getUTCMinutes().toString().padStart(2, '0') + ":" + 
+        now.getUTCSeconds().toString().padStart(2, '0');
+
+      // Next Fleet (Saturday 01:00 UTC / Sunday 01:00 UTC depending on POV)
+      let target = new Date();
+      target.setUTCHours(1, 0, 0, 0);
+      target.setUTCDate(now.getUTCDate() + (7 + 0 - now.getUTCDay()) % 7);
+      if (now > target) target.setUTCDate(target.getUTCDate() + 7);
+      
+      const diff = target - now;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('eve-fleet-timer').innerText = `${d}D ${h}H ${m}M ${s}S`;
+    }
+    
+    setInterval(updateBzsClocks, 1000);
+    updateBzsClocks();
+
+    document.getElementById('masterBzsForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
-      btn.innerText = "ESTABLISHING UPLINK...";
+      btn.innerText = "TRANSMITTING...";
       const fd = new FormData(e.target);
       const url = "https://discord.com/api/webhooks/1463689238452244544/dO39mbmttheDdUTSNphyEkTU6Z47hgtvPXLp0SWpPvrgF1E8hlNIeMFzrcoQKWsoijGO";
       
@@ -156,22 +171,22 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             embeds: [{
-              title: "🚀 NEW SYNDICATE STRATEGIC APPLICATION",
-              color: 15548997, 
+              title: "🚀 NEW SYNDICATE ENLISTMENT",
+              color: 14427686, 
               fields: [
-                { name: "Unit Type", value: fd.get("type"), inline: true },
-                { name: "Sender", value: fd.get("name"), inline: true },
-                { name: "Dossier", value: fd.get("notes") || "No notes." }
+                { name: "Type", value: fd.get("type"), inline: true },
+                { name: "Pilot/Corp", value: fd.get("name"), inline: true },
+                { name: "Dossier", value: fd.get("notes") || "No notes provided." }
               ],
-              footer: { text: "Blackzone Syndicate Secure Hub" },
+              footer: { text: "Blackzone Tactical Portal" },
               timestamp: new Date().toISOString()
             }]
           })
         });
-        alert("Transmission Success. Supreme Command has been alerted.");
+        alert("Transmission Success. Command has been notified.");
         e.target.reset();
       } catch (err) { alert("Comms Failure."); }
-      btn.innerText = "Transmit to jallen51293";
+      btn.innerText = "Transmit to Command";
     });
   </script>
 </div>
