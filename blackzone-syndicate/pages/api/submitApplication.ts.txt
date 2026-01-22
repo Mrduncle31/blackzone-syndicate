@@ -1,0 +1,19 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
+    const { embeds } = req.body;
+    try {
+      await fetch(process.env.DISCORD_WEBHOOK_URL!, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds }),
+      });
+      res.status(200).json({ message: 'Application sent' });
+    } catch (err) {
+      res.status(500).json({ error: 'Webhook failed' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
+}

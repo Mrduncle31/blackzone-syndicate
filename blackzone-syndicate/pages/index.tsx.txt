@@ -1,0 +1,9 @@
+export default function AllianceRecruitmentSite() {
+  const [activeTab, setActiveTab] = useState<DoctrineKey>('Rifter');
+  // ...rest of the code
+  return (
+    <div className="min-h-screen ...">
+      {/* HERO, DOCTRINES, FORM, CORPS, POPUP, FOOTER */}
+    </div>
+  );
+}
