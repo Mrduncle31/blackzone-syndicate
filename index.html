@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackzone Syndicate | Strategic Command</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: #050505;
+      color: #e4e4e7;
+      font-family: 'Inter', sans-serif;
+    }
+    .minmatar-font {
+      font-family: 'Orbitron', sans-serif;
+    }
+    .metal-panel {
+      background: linear-gradient(145deg, #151515, #0a0a0a);
+      border: 1px solid #222;
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+    }
+    .glow-red {
+      text-shadow: 0 0 14px rgba(220,38,38,0.9);
+    }
+  </style>
+</head>
+
+<body class="selection:bg-red-800 selection:text-white">
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur border-b border-zinc-800">
+  <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+    <h1 class="minmatar-font font-black text-xl uppercase glow-red">
+      Blackzone Syndicate
+    </h1>
+    <div class="flex gap-1 bg-zinc-900 p-1 border border-zinc-800">
+      <button onclick="switchTab('portal')" id="btn-portal"
+        class="px-6 py-2 text-xs font-bold uppercase tracking-widest bg-red-700 text-white">
+        Command
+      </button>
+      <button onclick="switchTab('doctrine')" id="btn-doctrine"
+        class="px-6 py-2 text-xs font-bold uppercase tracking-widest text-zinc-500 hover:text-white">
+        Doctrines
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24">
+
+<!-- COMMAND TAB -->
+<section id="tab-portal" class="max-w-6xl mx-auto px-6 mt-12">
+  <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="minmatar-font text-5xl font-black italic uppercase glow-red">
+        Strategic Command
+      </h2>
+      <p class="text-red-500 font-bold uppercase tracking-widest text-xs mt-3">
+        Supreme Commander: mrduncle31
+      </p>
+      <p class="text-zinc-400 mt-6 leading-relaxed border-l-2 border-red-600 pl-6">
+        Blackzone Syndicate is a Minmatar-aligned combat corporation operating
+        across contested warzones. We specialize in fast, aggressive doctrines
+        designed to overwhelm targets through brutality and speed.
+      </p>
+      <div class="flex gap-4 mt-8">
+        <a href="#enlist"
+          class="bg-red-700 px-8 py-4 minmatar-font font-black uppercase italic">
+          Enlist
+        </a>
+        <a href="https://zkillboard.com"
+          target="_blank"
+          class="border border-zinc-800 px-8 py-4 text-xs font-bold uppercase tracking-widest">
+          Killboard
+        </a>
+      </div>
+    </div>
+
+    <div class="metal-panel p-2">
+      <img src="https://images.evetech.net/banners/7_1280.jpg"
+        class="w-full grayscale hover:grayscale-0 transition duration-700">
+    </div>
+  </div>
+
+  <!-- RECRUITMENT -->
+  <div id="enlist" class="mt-32 max-w-3xl mx-auto metal-panel p-10 border-t-4 border-red-600">
+    <h3 class="minmatar-font text-3xl font-black uppercase italic mb-8">
+      Recruitment Terminal
+    </h3>
+    <form id="recruitForm" class="space-y-6">
+      <div class="grid md:grid-cols-2 gap-6">
+        <input required placeholder="PILOT NAME"
+          class="bg-black border border-zinc-800 p-4 focus:border-red-600 outline-none">
+        <input required placeholder="TIMEZONE"
+          class="bg-black border border-zinc-800 p-4 focus:border-red-600 outline-none">
+      </div>
+      <textarea rows="4"
+        placeholder="COMBAT EXPERIENCE / NOTES"
+        class="w-full bg-black border border-zinc-800 p-4 focus:border-red-600 outline-none resize-none"></textarea>
+      <button
+        class="w-full bg-white text-black minmatar-font font-black py-5 uppercase italic hover:bg-red-600 hover:text-white transition">
+        Transmit Application
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- DOCTRINES -->
+<section id="tab-doctrine" class="hidden max-w-7xl mx-auto px-8 mt-20">
+  <h2 class="minmatar-font text-4xl font-black uppercase italic mb-10">
+    Combat Doctrines
+  </h2>
+
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="metal-panel p-6">
+      <h3 class="minmatar-font text-xl font-bold uppercase">Rifter Swarm</h3>
+      <p class="text-zinc-400 text-sm mt-3">
+        High-speed tackle and brawl frigate doctrine.
+      </p>
+    </div>
+
+    <div class="metal-panel p-6">
+      <h3 class="minmatar-font text-xl font-bold uppercase">Slasher Intercept</h3>
+      <p class="text-zinc-400 text-sm mt-3">
+        Extreme velocity scouting and point control.
+      </p>
+    </div>
+
+    <div class="metal-panel p-6">
+      <h3 class="minmatar-font text-xl font-bold uppercase">Thrasher Alpha</h3>
+      <p class="text-zinc-400 text-sm mt-3">
+        Destroyer fleet built for brutal volley damage.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  function switchTab(tab) {
+    document.getElementById('tab-portal').classList.add('hidden');
+    document.getElementById('tab-doctrine').classList.add('hidden');
+    document.getElementById('tab-' + tab).classList.remove('hidden');
+
+    document.getElementById('btn-portal').className =
+      "px-6 py-2 text-xs font-bold uppercase tracking-widest " +
+      (tab === 'portal' ? "bg-red-700 text-white" : "text-zinc-500 hover:text-white");
+
+    document.getElementById('btn-doctrine').className =
+      "px-6 py-2 text-xs font-bold uppercase tracking-widest " +
+      (tab === 'doctrine' ? "bg-red-700 text-white" : "text-zinc-500 hover:text-white");
+  }
+</script>
+
+</body>
+</html>
