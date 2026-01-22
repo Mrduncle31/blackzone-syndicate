@@ -1,9 +1,176 @@
-export default function AllianceRecruitmentSite() {
+import React, { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Terminal, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import DoctrineTabs from "@/components/DoctrineTabs";
+import RecruitmentForm from "@/components/RecruitmentForm";
+
+// --- Types & Config ---
+type DoctrineKey = 'Rifter' | 'Slasher' | 'Thrasher';
+
+const doctrineFits: Record<DoctrineKey, { description: string; fit: string; typeId: string }> = {
+  Rifter: {
+    typeId: "587",
+    description: "Main DPS / Brawler",
+    fit: `[Rifter, BW Brawler]
+200mm AutoCannon II, Republic Fleet EMP S
+200mm AutoCannon II, Republic Fleet EMP S
+200mm AutoCannon II, Republic Fleet EMP S
+
+1MN Afterburner II
+Fleeting Compact Stasis Webifier
+Warp Scrambler II
+
+Gyrostabilizer II
+Damage Control II
+Small Auxiliary Armor Repairer
+
+Small Projectile Burst Aerator I
+Small Projectile Collision Accelerator I`
+  },
+  Slasher: {
+    typeId: "586",
+    description: "Tackle / Web / Scout",
+    fit: `[Slasher, Tackle]
+125mm Light 'Scout' Autocannon I, Republic Fleet EMP S
+125mm Light 'Scout' Autocannon I, Republic Fleet EMP S
+125mm Light 'Scout' Autocannon I, Republic Fleet EMP S
+
+5MN Y-T8 Compact Microwarpdrive
+Warp Scrambler II
+Faint Epsilon Scoped Warp Disruptor
+Fleeting Compact Stasis Webifier
+
+Damage Control I
+Small EM Shield Reinforcer I
+Small Thermal Shield Reinforcer I`
+  },
+  Thrasher: {
+    typeId: "597",
+    description: "Rocket DPS / Mid-Range Skirmish",
+    fit: `[Thrasher, Skirmish]
+Rocket Launcher II, Mjolnir Rocket
+Rocket Launcher II, Mjolnir Rocket
+Rocket Launcher II, Mjolnir Rocket
+Rocket Launcher II, Mjolnir Rocket
+
+5MN Y-T8 Compact Microwarpdrive
+Warp Scrambler II
+Fleeting Compact Stasis Webifier
+Stasis Webifier II
+
+Ballistic Control System II
+Damage Control II
+Small Projectile Burst Aerator I`
+  }
+};
+
+const memberCorps = [
+  { name: 'The SA-V-AGES', id: '98730421' },
+  { name: 'Blackzone Industry', id: '1000169' }, 
+  { name: 'Vanguard Tactics', id: '1000167' },
+  { name: 'Syndicate Logistics', id: '1000171' }
+];
+
+export default function HomePage() {
+  const recruitmentRef = useRef<HTMLDivElement | null>(null);
   const [activeTab, setActiveTab] = useState<DoctrineKey>('Rifter');
-  // ...rest of the code
+  const [showPopup, setShowPopup] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const scrollToRecruitment = () => recruitmentRef.current?.scrollIntoView({ behavior: "smooth" });
+
   return (
-    <div className="min-h-screen ...">
-      {/* HERO, DOCTRINES, FORM, CORPS, POPUP, FOOTER */}
+    <div className="min-h-screen bg-[#050505] text-zinc-200 font-sans selection:bg-red-900/40">
+      
+      {/* HEADER */}
+      <nav className="fixed top-0 w-full z-40 bg-black/60 backdrop-blur-xl border-b border-white/5 px-6 py-4">
+        <div className="max-w-6xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-red-600 rounded-sm rotate-45 flex items-center justify-center">
+              <Terminal className="text-white w-4 h-4 -rotate-45" />
+            </div>
+            <span className="font-black tracking-tighter text-xl uppercase italic">BZS</span>
+          </div>
+          <div className="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-zinc-500">
+            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-red-500 transition-colors">Combat Intel</button>
+            <button onClick={scrollToRecruitment} className="hover:text-red-500 transition-colors">Enlist</button>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="relative flex flex-col items-center justify-center text-center px-6 pt-56 pb-32">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-red-900/10 blur-[140px] rounded-full -z-10" />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter italic uppercase leading-none">
+            BLACKZONE<br /><span className="text-red-600">SYNDICATE</span>
+          </h1>
+          <p className="mt-8 max-w-2xl mx-auto text-zinc-400 text-lg md:text-xl font-light">
+            Providing <span className="text-zinc-100 font-medium">disciplined violence</span> across the Minmatar front. Lowsec mastery. EST Core.
+          </p>
+          <div className="mt-12 flex flex-wrap gap-4 justify-center">
+            <Button size="lg" className="rounded-none bg-red-600 hover:bg-red-700 text-white px-10 h-16 text-lg font-black uppercase italic" onClick={scrollToRecruitment}>Enlist Now</Button>
+            <Button size="lg" variant="outline" className="rounded-none border-zinc-800 hover:bg-zinc-900 h-16 px-10 uppercase font-bold" onClick={() => setShowPopup(true)}>Comms / Discord</Button>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* DOCTRINES */}
+      <section className="px-6 py-32 max-w-6xl mx-auto">
+        <DoctrineTabs 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+          doctrineFits={doctrineFits} 
+          copied={copied} 
+          setCopied={setCopied} 
+        />
+      </section>
+
+      {/* FORM */}
+      <section ref={recruitmentRef} className="px-6 py-32 bg-zinc-900/20 border-y border-zinc-900/50">
+        <RecruitmentForm />
+      </section>
+
+      {/* CORPS */}
+      <section className="px-6 py-32 max-w-6xl mx-auto text-center">
+        <h2 className="text-xs font-black text-zinc-600 mb-16 uppercase tracking-[0.5em]">Alliance Infrastructure</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
+          {memberCorps.map((corp) => (
+            <div key={corp.name} className="flex flex-col items-center gap-4">
+              <img 
+                src={`https://images.evetech.net/corporations/${corp.id}/logo?size=128`} 
+                alt={corp.name} 
+                className="w-20 h-20"
+              />
+              <span className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">{corp.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* DISCORD POPUP */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center z-50 p-6">
+            <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="bg-[#0a0a0a] border border-zinc-800 p-12 max-w-md w-full relative">
+              <h3 className="text-4xl font-black italic uppercase mb-6 tracking-tighter">Secure Comms</h3>
+              <p className="text-zinc-400 leading-relaxed mb-8">Unauthorized access prohibited. Join the recruitment lobby and wait for a Director to authenticate your pilot profile.</p>
+              <div className="flex flex-col gap-4">
+                <Button className="rounded-none bg-[#5865F2] hover:bg-[#4752C4] py-6 font-bold" onClick={() => window.open("https://discord.gg/UkQqUcQm4M", "_blank")}>Establish Connection</Button>
+                <Button variant="ghost" className="text-zinc-600 hover:text-white font-bold" onClick={() => setShowPopup(false)}>Abort</Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <footer className="py-20 border-t border-zinc-900 text-center">
+        <p className="text-zinc-700 text-[10px] font-black tracking-[0.3em] uppercase italic">
+          YC128 Blackzone Syndicate // Secure Data Stream // Fly Safe o7
+        </p>
+      </footer>
+
     </div>
   );
 }
