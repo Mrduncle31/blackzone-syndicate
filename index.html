@@ -1,101 +1,92 @@
-<div id="bzs-portal-final" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 40px 20px; font-family: 'Inter', sans-serif; color: #e4e4e7;">
+<div id="bzs-final-portal" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 20px; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700&display=swap');
-
-    #bzs-portal-final * { box-sizing: border-box; }
-    #bzs-portal-final .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 2px; }
-    
-    #bzs-portal-final {
-      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://images.evetech.net/banners/6_1280.jpg') !important;
-      background-size: cover !important;
-      background-position: center !important;
-      background-attachment: fixed !important;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700;900&display=swap');
+    #bzs-final-portal * { box-sizing: border-box; }
+    #bzs-final-portal .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 2px; }
+    #bzs-final-portal {
+      background-image: linear-gradient(rgba(0,0,0,0.96), rgba(0,0,0,0.96)), url('https://images.evetech.net/banners/6_1280.jpg') !important;
+      background-size: cover !important; background-attachment: fixed !important;
     }
-
-    #bzs-portal-final .panel {
-      background: rgba(20, 20, 20, 0.95) !important;
-      border: 1px solid #333 !important;
-      padding: 40px !important;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8) !important;
-    }
-
-    #bzs-portal-final .red-glow {
-      color: #fff !important;
-      text-shadow: 0 0 20px rgba(220, 38, 38, 0.8) !important;
-    }
-
-    #bzs-portal-final .divider {
-      height: 4px;
-      width: 60px;
-      background: #dc2626;
-      margin: 20px 0;
-    }
-
-    #bzs-portal-final input, #bzs-portal-final textarea {
-      width: 100% !important;
-      background: #000 !important;
-      border: 1px solid #444 !important;
-      color: #fff !important;
-      padding: 15px !important;
-      margin-top: 8px !important;
-      margin-bottom: 20px !important;
-      font-size: 14px !important;
-    }
-
-    #bzs-portal-final button {
-      background: #dc2626 !important;
-      color: #fff !important;
-      width: 100% !important;
-      padding: 20px !important;
-      border: none !important;
-      font-weight: 900 !important;
-      cursor: pointer !important;
-      transition: all 0.2s !important;
-    }
-
-    #bzs-portal-final button:hover { background: #fff !important; color: #000 !important; }
-
-    .bzs-flex { display: flex; gap: 40px; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
-    .bzs-col { flex: 1; min-width: 320px; }
+    #bzs-final-portal .panel { background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; padding: 30px !important; margin-bottom: 30px !important; border-top: 3px solid #dc2626 !important; position: relative; overflow: hidden; }
+    #bzs-final-portal .header-glow { text-align: center; margin-bottom: 60px; padding-top: 40px; }
+    #bzs-final-portal .corp-logo-large { width: 150px; height: 150px; border: 2px solid #dc2626; margin-bottom: 20px; background: #000; box-shadow: 0 0 30px rgba(220, 38, 38, 0.3); }
+    #bzs-final-portal .feature-img { width: 100%; height: 250px; object-fit: cover; border-bottom: 2px solid #dc2626; margin-bottom: 20px; }
+    #bzs-final-portal .red-tag { background: #dc2626; color: #fff; padding: 4px 12px; font-size: 10px; font-weight: 900; position: absolute; top: 0; right: 0; text-transform: uppercase; }
+    #bzs-final-portal .stat-row { display: flex; gap: 20px; margin: 20px 0; border-top: 1px solid #222; padding-top: 20px; }
+    #bzs-final-portal .stat-box { flex: 1; text-align: center; }
+    #bzs-final-portal .stat-val { display: block; color: #dc2626; font-size: 22px; font-weight: 900; font-family: 'Orbitron'; }
+    #bzs-final-portal input, #bzs-final-portal textarea, #bzs-final-portal select { width: 100% !important; background: #000 !important; border: 1px solid #444 !important; color: #fff !important; padding: 15px !important; margin-bottom: 20px !important; }
+    #bzs-final-portal button { background: #dc2626 !important; color: #fff !important; width: 100% !important; padding: 20px !important; border: none !important; font-weight: 900 !important; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+    #bzs-final-portal button:hover { background: #fff !important; color: #000 !important; }
   </style>
 
-  <div style="text-align: center; margin-bottom: 60px;">
-    <h1 class="minmatar-font red-glow" style="font-size: 55px; margin: 0; italic">BLACKZONE SYNDICATE</h1>
-    <p style="letter-spacing: 8px; color: #dc2626; font-weight: 900; font-size: 12px; margin-top: 10px;">SUPREME COMMAND: jallen51293</p>
-  </div>
-
-  <div class="bzs-flex">
-    <div class="bzs-col">
-      <div class="panel">
-        <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 30px;">
-          <img src="https://images.evetech.net/corporations/98730421/logo?size=128" style="width: 100px; height: 100px; border: 1px solid #dc2626;">
-          <div>
-            <h2 class="minmatar-font" style="margin: 0; font-size: 28px; color: #fff;">SA-V-AGES</h2>
-            <p style="color: #dc2626; font-size: 11px; font-weight: bold; letter-spacing: 2px;">EXECUTOR CORPORATION</p>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <p style="color: #a1a1aa; line-height: 1.8; font-size: 16px;">
-          The tip of the spear. <strong>SA-V-AGES</strong> provides the tactical backbone for the Blackzone Syndicate. We operate across all contested warzones with a focus on high-mobility warfare and objective control.
-        </p>
-      </div>
+  <div style="max-width: 1200px; margin: 0 auto;">
+    
+    <div class="header-glow">
+      <img src="https://images.evetech.net/corporations/98730421/logo?size=256" class="corp-logo-large" alt="SA-V-AGES">
+      <h1 class="minmatar-font" style="font-size: 60px; margin: 0; color: white;">SA-V-AGES</h1>
+      <p style="letter-spacing: 10px; color: #dc2626; font-weight: 900; font-size: 14px;">LEAD EXECUTOR: BLACKZONE SYNDICATE</p>
     </div>
 
-    <div class="bzs-col">
-      <div class="panel" style="border-top: 4px solid #dc2626 !important;">
-        <h3 class="minmatar-font" style="margin: 0; font-size: 22px; color: #fff;">ENLISTMENT TERMINAL</h3>
-        <p style="font-size: 11px; color: #555; margin-bottom: 25px;">SECURE UPLOAD TO ALLIANCE COMMAND</p>
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start;">
+      
+      <div>
         
-        <form id="finalBzsForm">
-          <label style="font-size: 11px; font-weight: bold; color: #dc2626; text-transform: uppercase;">Pilot Name</label>
-          <input type="text" name="pilot" placeholder="Full Character Name" required>
-          
-          <label style="font-size: 11px; font-weight: bold; color: #dc2626; text-transform: uppercase;">Combat Record</label>
-          <textarea name="bio" rows="4" placeholder="Previous experience, notable kills, or ship specialties..."></textarea>
-          
-          <button type="submit" id="submitBtn" class="minmatar-font">Transmit to jallen51293</button>
-        </form>
+        <div class="panel">
+          <span class="red-tag">Active Recruitment</span>
+          <h2 class="minmatar-font" style="font-size: 24px; color: #fff; margin-bottom: 15px;">Corporation Dossier</h2>
+          <p style="color: #bbb; font-size: 16px;">
+            <strong>SA-V-AGES [S-A-V]</strong> is the primary combat force and leadership core of the Blackzone Syndicate alliance. Under the command of <strong>jallen51293</strong>, we operate as a high-aggression Faction Warfare unit dedicated to Minmatar sovereignty.
+          </p>
+          <div class="stat-row">
+            <div class="stat-box"><span class="stat-val">S-A-V</span><small>TICKER</small></div>
+            <div class="stat-box"><span class="stat-val">10%</span><small>TAX</small></div>
+            <div class="stat-box"><span class="stat-val">FW</span><small>FOCUS</small></div>
+          </div>
+          <p style="font-size: 14px; color: #666;">Official data pulled from EVE Online Information Portal.</p>
+        </div>
+
+        <div class="panel">
+          <img src="https://web.static.now.eveonline.com/product/everift/homefront_operations.jpg" class="feature-img" alt="EVE Homefronts">
+          <h3 class="minmatar-font" style="font-size: 20px; color: #fff;">The War Machine: Homefronts & DEDs</h3>
+          <p style="color: #aaa;">
+            PVP is our passion, but ISK is our fuel. We maintain high-efficiency <strong>Homefront Operations</strong> and <strong>DED Complex</strong> scouting teams. This constant ISK flow allows our pilots to remain combat-ready and fully funded for frontline Faction Warfare. We provide the fleets; we provide the funding.
+          </p>
+        </div>
+
+        <div class="panel">
+          <img src="https://images.ctfassets.net/709v6u80as3c/4m1xX9X6X6X6X6X6X6X6X6/b0e5a8e0e0e0e0e0e0e0e0e0e0e0e0e0/EVE_Online_Fleet.jpg" class="feature-img" alt="Alliance Combat">
+          <h3 class="minmatar-font" style="font-size: 20px; color: #fff;">Alliance Expansion: Join the Syndicate</h3>
+          <p style="color: #aaa;">
+            <strong>Blackzone Syndicate wants your Corporation.</strong> We aren't just looking for pilots—we are looking for brothers in arms. If your corporation wants to join a professional alliance that dominates the warzone and provides infrastructure for your members, the Syndicate is open.
+          </p>
+        </div>
+
       </div>
+
+      <div style="position: sticky; top: 20px;">
+        <div class="panel">
+          <h3 class="minmatar-font" style="font-size: 22px; color: #fff;">Uplink Terminal</h3>
+          <p style="font-size: 11px; color: #555; margin-bottom: 25px;">SECURE TRANSMISSION TO ALLIANCE COMMAND</p>
+          
+          <form id="finalBzsForm">
+            <label style="color: #dc2626; font-size: 10px; font-weight: bold;">APPLICATION TYPE</label>
+            <select name="app_type">
+              <option value="Pilot for SA-V-AGES">Pilot Application (SA-V-AGES)</option>
+              <option value="Corp for Alliance">Corporation Application (Alliance)</option>
+            </select>
+
+            <label style="color: #dc2626; font-size: 10px; font-weight: bold; margin-top: 15px; display: block;">NAME / TICKER</label>
+            <input type="text" name="applicant_name" placeholder="Character Name or Corp Name" required>
+
+            <label style="color: #dc2626; font-size: 10px; font-weight: bold; margin-top: 15px; display: block;">COMBAT / PVE FOCUS</label>
+            <textarea name="dossier" rows="8" placeholder="Tell us about your ships, your experience, and why you want to fight with the Syndicate..."></textarea>
+            
+            <button type="submit" id="submitBtn">Transmit to jallen51293</button>
+          </form>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -113,22 +104,22 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             embeds: [{
-              title: "⚔️ NEW SA-V-AGES ENLISTMENT",
+              title: "⚔️ BLACKZONE SYNDICATE: NEW APPLICATION",
               color: 15548997, 
               thumbnail: { url: "https://images.evetech.net/corporations/98730421/logo?size=128" },
               fields: [
-                { name: "Supreme Commander", value: "jallen51293", inline: true },
-                { name: "Applicant Pilot", value: fd.get("pilot"), inline: true },
-                { name: "Dossier", value: fd.get("bio") || "No combat history provided." }
+                { name: "Type", value: fd.get("app_type"), inline: true },
+                { name: "Applicant", value: fd.get("applicant_name"), inline: true },
+                { name: "Dossier", value: fd.get("dossier") || "No details provided" }
               ],
-              footer: { text: "Blackzone Syndicate Secure Terminal" },
+              footer: { text: "Authorized by jallen51293" },
               timestamp: new Date().toISOString()
             }]
           })
         });
-        alert("Transmission successful. Commander jallen51293 has been notified.");
+        alert("Transmission Received. Welcome to the Syndicate.");
         e.target.reset();
-      } catch (err) { alert("Comms jammed. Check your connection."); }
+      } catch (err) { alert("Comms Error. Discord Uplink Failure."); }
       btn.innerText = "Transmit to jallen51293";
     });
   </script>
