@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BZS | Strategic Command</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;900&display=swap');
+    body { background: #050505; color: #e4e4e7; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .minmatar-font { font-family: 'Orbitron', sans-serif; }
+    .metal-panel { background: linear-gradient(145deg, #151515, #0a0a0a); border: 1px solid #222; box-shadow: inset 0 0 30px rgba(0,0,0,1); }
+    .glow-red { text-shadow: 0 0 15px rgba(220, 38, 38, 1); }
+    .system-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #333; position: relative; overflow: hidden; }
+    .system-node:hover { border-color: #dc2626; background: rgba(220, 38, 38, 0.05); transform: translateY(-4px); }
+    .map-bg { background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 30px 30px; }
+  </style>
+</head>
+<body class="selection:bg-red-900 selection:text-white">
+
+  <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+      <div class="flex items-center gap-4">
+        <h1 class="minmatar-font font-black text-xl tracking-tighter glow-red uppercase">Blackzone Syndicate</h1>
+      </div>
+      <div class="flex gap-1 bg-zinc-900 p-1 rounded-sm border border-zinc-800">
+        <button onclick="switchTab('portal')" id="btn-portal" class="px-6 py-2 text-[10px] font-bold uppercase tracking-widest bg-red-700 text-white">Command Portal</button>
+        <button onclick="switchTab('map')" id="btn-map" class="px-6 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-all">Tactical Map</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24">
+    <div id="tab-portal" class="tab-content">
+       <section class="max-w-6xl mx-auto px-6 mt-12">
+         <div class="grid lg:grid-cols-2 gap-12 items-center">
+           <div class="space-y-6">
+             <h2 class="minmatar-font text-5xl font-black italic glow-red uppercase leading-none text-white">Alliance Strategic Command</h2>
+             <p class="text-red-500 font-bold tracking-widest uppercase text-xs">Supreme Commander: jallen51293</p>
+             <p class="text-zinc-400 text-lg leading-relaxed border-l-2 border-red-600 pl-6">
+               Blackzone Syndicate is a sovereign combat collective operating in the Minmatar warzone. Under the direct leadership of jallen51293, we utilize high-impact skirmish tactics to secure Republic borders.
+             </p>
+             <div class="flex gap-4 pt-4">
+                <a href="#enlist" class="bg-red-700 text-white px-8 py-4 minmatar-font font-black italic uppercase">Join the Syndicate</a>
+                <a href="https://zkillboard.com/corporation/98730421/" target="_blank" class="border border-zinc-800 px-8 py-4 font-bold text-xs uppercase tracking-widest flex items-center gap-2">View Killboard</a>
+             </div>
+           </div>
+           <div class="metal-panel p-2">
+             <img src="https://images.evetech.net/banners/7_1280.jpg" class="w-full grayscale hover:grayscale-0 transition-all duration-1000">
+           </div>
+         </div>
+
+         <div id="enlist" class="mt-32 max-w-3xl mx-auto metal-panel p-10 border-t-4 border-red-600">
+            <h3 class="minmatar-font text-3xl font-black uppercase italic mb-8">Enlistment Terminal</h3>
+            <form id="recruitForm" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input name="character" class="w-full bg-black border border-zinc-800 p-4 outline-none focus:border-red-600" placeholder="PILOT NAME" required>
+                <input name="timezone" class="w-full bg-black border border-zinc-800 p-4 outline-none focus:border-red-600" placeholder="TIMEZONE" required>
+              </div>
+              <textarea name="notes" rows="4" class="w-full bg-black border border-zinc-800 p-4 outline-none focus:border-red-600 resize-none" placeholder="RELEVANT COMBAT HISTORY..."></textarea>
+              <button type="submit" id="submitBtn" class="w-full bg-white text-black minmatar-font font-black py-5 hover:bg-red-600 hover:text-white transition-all uppercase italic">Transmit to jallen51293</button>
+            </form>
+         </div>
+       </section>
+    </div>
+
+    <div id="tab-map" class="tab-content hidden">
+      <section class="max-w-7xl mx-auto px-8">
+        <h2 class="minmatar-font text-4xl font-black uppercase italic mb-10">Warzone Intel</h2>
+        <div class="grid lg:grid-cols-3 gap-8 map-bg p-10 border border-zinc-900">
+          <a href="https://zkillboard.com/system/30002510/" target="_blank" class="metal-panel p-8 system-node block">
+            <h4 class="minmatar-font text-2xl font-bold text-white uppercase italic">Auga</h4>
+            <p class="text-red-500 text-[10px] font-bold tracking-widest mt-2 uppercase">Status: Contested</p>
+          </a>
+          <a href="https://zkillboard.com/system/30002506/" target="_blank" class="metal-panel p-8 system-node block">
+            <h4 class="minmatar-font text-2xl font-bold text-white uppercase italic">Varna</h4>
+            <p class="text-red-500 text-[10px] font-bold tracking-widest mt-2 uppercase">Status: Critical</p>
+          </a>
+          <a href="https://zkillboard.com/system/30002537/" target="_blank" class="metal-panel p-8 system-node block">
+            <h4 class="minmatar-font text-2xl font-bold text-white uppercase italic">Amamake</h4>
+            <p class="text-zinc-500 text-[10px] font-bold tracking-widest mt-2 uppercase">Status: Frontier</p>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tab).classList.remove('hidden');
+      document.getElementById('btn-portal').className = "px-6 py-2 text-[10px] font-bold uppercase tracking-widest " + (tab === 'portal' ? 'bg-red-700 text-white' : 'text-zinc-500 hover:text-white');
+      document.getElementById('btn-map').className = "px-6 py-2 text-[10px] font-bold uppercase tracking-widest " + (tab === 'map' ? 'bg-red-700 text-white' : 'text-zinc-500 hover:text-white');
+    }
+
+    document.getElementById('recruitForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.innerText = "TRANSMITTING...";
+      const fd = new FormData(e.target);
+      const url = "https://discord.com/api/webhooks/1463689238452244544/dO39mbmttheDdUTSNphyEkTU6Z47hgtvPXLp0SWpPvrgF1E8hlNIeMFzrcoQKWsoijGO";
+      
+      try {
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🚩 ALLIANCE RECRUITMENT",
+              color: 15548997, 
+              fields: [
+                { name: "Commander", value: "jallen51293", inline: true },
+                { name: "Pilot", value: fd.get("character"), inline: true },
+                { name: "Dossier", value: fd.get("notes") || "None" }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+        alert("Transmission Complete.");
+        e.target.reset();
+      } catch (err) { alert("Comms Blocked."); }
+      btn.innerText = "Transmit to jallen51293";
+    });
+  </script>
+</body>
+</html>
