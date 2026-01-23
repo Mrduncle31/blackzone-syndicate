@@ -1,143 +1,156 @@
-<div id="bzs-tactical-v2" style="all: initial; display: block; background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #e4e4e7;">
+<div id="bzs-hud-core" style="all: initial; display: block; background: #020202; min-height: 100vh; font-family: 'Inter', sans-serif; color: #e4e4e7; position: relative; overflow-x: hidden;">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
     
-    #bzs-tactical-v2 {
-      background-image: 
-        linear-gradient(rgba(220, 38, 38, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(220, 38, 38, 0.05) 1px, transparent 1px),
-        linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
-        url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1');
-      background-size: 50px 50px, 50px 50px, cover, cover;
-      background-attachment: fixed;
-    }
-
-    /* SCANLINE EFFECT */
-    #bzs-tactical-v2::after {
-      content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      z-index: 9999; width: 100%; height: 100%; pointer-events: none; background-size: 100% 2px, 3px 100%;
+    #bzs-hud-core {
+      background-image: radial-gradient(circle at center, rgba(220, 38, 38, 0.05) 0%, transparent 70%),
+                        linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                        url('https://r.jina.ai/i/0586071917f6424594c7940f828770cb'); /* Updated Fleet Image */
+      background-size: cover; background-attachment: fixed; background-position: center;
     }
 
     .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 2px; }
     .mono { font-family: 'Share Tech Mono', monospace !important; }
 
-    /* HUD ELEMENTS */
-    .top-nav { background: rgba(220, 38, 38, 0.9); border-bottom: 3px solid #fff; padding: 10px 40px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 1000; box-shadow: 0 0 20px rgba(220, 38, 38, 0.5); }
-    
-    .status-bar { background: #000; color: #dc2626; padding: 5px 20px; font-size: 12px; border: 1px solid #dc2626; margin-top: 10px; display: flex; justify-content: space-around; }
-
-    .panel-v2 { 
-      background: rgba(10, 10, 10, 0.9); border: 1px solid #333; position: relative; overflow: hidden;
-      transition: 0.3s;
+    /* HEADER HUD */
+    .hud-nav { 
+      background: rgba(0,0,0,0.9); border-bottom: 1px solid #dc2626; 
+      padding: 20px 40px; display: flex; justify-content: space-between; 
+      align-items: center; backdrop-filter: blur(10px);
     }
-    .panel-v2:hover { border-color: #dc2626; transform: translateY(-5px); box-shadow: 0 0 30px rgba(220, 38, 38, 0.2); }
     
-    .panel-v2::before { content: "SYSTEM.READY"; position: absolute; top: 5px; right: 10px; font-size: 8px; color: #dc2626; font-family: monospace; }
-
-    .sp-button {
-      background: #fbbf24; color: #000; padding: 12px 25px; text-decoration: none; font-weight: 900; 
-      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); transition: 0.3s;
+    /* SCANNER TICKER */
+    .scanner-bar { 
+      background: rgba(220, 38, 38, 0.1); border-bottom: 1px solid #440000; 
+      padding: 8px; white-space: nowrap; overflow: hidden;
     }
-    .sp-button:hover { background: #fff; transform: skew(-5deg); }
+    .scanner-text { display: inline-block; animation: scan 35s linear infinite; color: #dc2626; font-size: 11px; font-weight: bold; }
+    @keyframes scan { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
+    /* HUD SHIP CARDS */
+    .tactical-container { max-width: 1300px; margin: 0 auto; padding: 50px 20px; }
+    .hud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    
+    .hud-card { 
+      background: rgba(10, 10, 10, 0.9); border: 1px solid #333; 
+      position: relative; transition: 0.3s; cursor: pointer; overflow: hidden;
+    }
+    .hud-card::before { 
+        content: ''; position: absolute; top: 0; left: 0; width: 15px; height: 15px; 
+        border-top: 2px solid #dc2626; border-left: 2px solid #dc2626; 
+    }
+    .hud-card::after { 
+        content: ''; position: absolute; bottom: 0; right: 0; width: 15px; height: 15px; 
+        border-bottom: 2px solid #dc2626; border-right: 2px solid #dc2626; 
+    }
+    
+    .hud-card:hover { border-color: #dc2626; transform: scale(1.02); background: rgba(20, 5, 5, 0.95); }
+    .hud-card:hover .card-header { background: #dc2626; color: #000; }
+    
+    .card-header { background: #1a1a1a; padding: 12px; font-size: 14px; font-weight: 900; transition: 0.3s; border-bottom: 1px solid #333; }
+    .card-content { padding: 25px; }
+    
+    .btn-discord { 
+      background: #5865F2; color: #fff; border: none; 
+      padding: 12px 24px; font-size: 12px; text-decoration: none; 
+      transition: 0.3s; font-weight: 900; border-radius: 4px;
+    }
+    .btn-discord:hover { background: #4752c4; box-shadow: 0 0 15px rgba(88, 101, 242, 0.5); }
+
+    #copy-notice { 
+      display:none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      background: #fbbf24; color: #000; padding: 10px 40px; 
+      font-weight: 900; z-index: 9999; border-radius: 2px; box-shadow: 0 0 20px rgba(251,191,36,0.4);
+    }
   </style>
 
-  <div class="top-nav">
-    <div style="display: flex; gap: 40px;">
-      <div><span style="font-size: 9px; display: block; opacity: 0.7;">UTC CLOCK</span><span id="clock" class="mono" style="font-size: 20px;">00:00:00</span></div>
-      <div><span style="font-size: 9px; display: block; opacity: 0.7;">NEXT DEPLOYMENT</span><span id="timer" class="mono" style="font-size: 20px;">00:00:00</span></div>
+  <div id="copy-notice" class="minmatar-font">DATA UPLINK SUCCESSFUL // FIT COPIED</div>
+
+  <nav class="hud-nav">
+    <div>
+      <div class="minmatar-font" style="color: #dc2626; font-size: 24px;">BZS // SYSTEM HUD</div>
+      <div class="mono" style="font-size: 10px; color: #666;">ALLIANCE INTERFACE v4.7</div>
     </div>
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <a href="https://www.eveonline.com/signup?invc=ffab12e3-0b30-4a9a-bc93-1532ff230f06" class="sp-button minmatar-font">Claim 1M SP</a>
-      <a href="https://discord.gg/v6M83zhBd9" class="minmatar-font" style="color: #fff; text-decoration: none; font-size: 12px; border: 1px solid #fff; padding: 10px 20px;">Comms Uplink</a>
+    <div style="display: flex; gap: 40px; align-items: center;">
+      <div class="mono" style="text-align: right;">
+        <div style="color: #aaa; font-size: 10px;">EVE TIME</div>
+        <div id="eve-clock" style="color: #fff; font-size: 18px;">00:00:00</div>
+      </div>
+      <a href="YOUR_DISCORD_LINK_HERE" target="_blank" class="btn-discord minmatar-font">JOIN OUR DISCORD</a>
+    </div>
+  </nav>
+
+  <div class="scanner-bar mono">
+    <div class="scanner-text">
+      ::: SCANNING LOCAL ::: SYSTEM SECURE ::: STABBER: ONLINE ::: THRASHER: ONLINE ::: SCYTHE: ONLINE ::: BURST: ONLINE ::: SLASHER: ONLINE ::: JOIN DISCORD FOR FLEET COMMS ::: 
     </div>
   </div>
 
-  <div class="status-bar mono">
-    <span>CONCORD STATUS: SECURE</span>
-    <span>WARZONE: ACTIVE</span>
-    <span>SQUADRON: BLACKZONE</span>
-    <span>UPLINK: STABLE</span>
-  </div>
+  <div class="tactical-container">
+    <div class="hud-grid">
+      
+      <div class="hud-card" onclick="copyFit('stabber')">
+        <div class="card-header minmatar-font">STABBER [ALPHA KITER]</div>
+        <div class="card-content">
+          <div class="mono" style="color: #dc2626; margin-bottom: 5px;">ROLE: MAIN DPS</div>
+          <p class="mono" style="font-size: 12px; color: #888;">Standard skirmish platform. Stay at range, keep the MWD cycling.</p>
+        </div>
+      </div>
 
-  <div style="max-width: 1400px; margin: 0 auto; padding: 60px 20px;">
-    
-    <header style="text-align: center; margin-bottom: 80px; position: relative;">
-        <div style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 100px; height: 2px; background: #dc2626;"></div>
-        <h1 class="minmatar-font" style="font-size: 80px; margin: 0; text-shadow: 0 0 20px rgba(220,38,38,0.5);">SYNDICATE</h1>
-        <p class="mono" style="letter-spacing: 8px; color: #dc2626;">TACTICAL OPERATIONS CENTER</p>
-    </header>
+      <div class="hud-card" onclick="copyFit('thrasher')">
+        <div class="card-header minmatar-font">THRASHER [INSTALOCK]</div>
+        <div class="card-content">
+          <div class="mono" style="color: #dc2626; margin-bottom: 5px;">ROLE: GATE DEFENSE</div>
+          <p class="mono" style="font-size: 12px; color: #888;">High scan resolution. Designed to catch shuttles and frigates.</p>
+        </div>
+      </div>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 60px;">
-      <div class="panel-v2">
-        <img src="https://lh3.googleusercontent.com/d/1q4Sm-xccG73QA7sw57Z2TxSnjh49duNG" style="width: 100%; height: 250px; object-fit: cover; filter: grayscale(0.5) sepia(0.2) hue-rotate(-50deg);">
-        <div style="padding: 20px;">
-          <h3 class="minmatar-font">War Economy</h3>
-          <p style="font-size: 13px; color: #888;">Homefront & DED salvage. Funding the frontline.</p>
+      <div class="hud-card" onclick="copyFit('scythe')">
+        <div class="card-header minmatar-font">SCYTHE [CRUISER LOGI]</div>
+        <div class="card-content">
+          <div class="mono" style="color: #dc2626; margin-bottom: 5px;">ROLE: SHIELD REP</div>
+          <p class="mono" style="font-size: 12px; color: #888;">Cruiser-level logistics. Watch the broadcast window.</p>
         </div>
       </div>
-      <div class="panel-v2">
-        <img src="https://lh3.googleusercontent.com/d/1f125lkW085Aw8nCVdstRWwWUw0oGXSUI" style="width: 100%; height: 250px; object-fit: cover; filter: grayscale(0.5) sepia(0.2) hue-rotate(-50deg);">
-        <div style="padding: 20px;">
-          <h3 class="minmatar-font">Exploration</h3>
-          <p style="font-size: 13px; color: #888;">Deep space intelligence and relic recovery.</p>
+
+      <div class="hud-card" onclick="copyFit('burst')">
+        <div class="card-header minmatar-font">BURST [ALPHA LOGI]</div>
+        <div class="card-content">
+          <div class="mono" style="color: #dc2626; margin-bottom: 5px;">ROLE: FRIG LOGI</div>
+          <p class="mono" style="font-size: 12px; color: #888;">Fast, agile support. Keeps the tackle and scouts alive.</p>
         </div>
       </div>
-      <div class="panel-v2">
-        <img src="https://lh3.googleusercontent.com/d/1cZor_BxlVIP-N4psTJq-NWW306X_92kw" style="width: 100%; height: 250px; object-fit: cover; filter: grayscale(0.5) sepia(0.2) hue-rotate(-50deg);">
-        <div style="padding: 20px;">
-          <h3 class="minmatar-font">Main Fleet</h3>
-          <p style="font-size: 13px; color: #888;">Saturday 01:00 UTC. Zero fear deployment.</p>
+
+      <div class="hud-card" onclick="copyFit('slasher')">
+        <div class="card-header minmatar-font">SLASHER [TACKLE]</div>
+        <div class="card-content">
+          <div class="mono" style="color: #dc2626; margin-bottom: 5px;">ROLE: SCRAM/WEB</div>
+          <p class="mono" style="font-size: 12px; color: #888;">Primary scout and tackle. Dive in first, lock them down.</p>
         </div>
       </div>
+
     </div>
-
-    <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid #dc2626; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-      <div>
-        <h2 class="minmatar-font">Join the Crew</h2>
-        <p class="mono" style="color: #aaa;">Secure channel is open. Transmit your dossier for immediate vetting.</p>
-        <div style="margin-top: 20px; font-size: 12px; color: #dc2626;" class="mono">
-          > 1,000,000 SP BONUS DETECTED<br>
-          > ALLIANCE SRP ACTIVE<br>
-          > DISCORD COMMS REQUIRED
-        </div>
-      </div>
-      <form id="v2Form">
-        <input type="text" name="name" placeholder="PILOT NAME" style="width: 100%; background: #000; border: 1px solid #dc2626; padding: 15px; color: #fff; margin-bottom: 15px;" required>
-        <textarea name="notes" placeholder="SPECIALIZATION / EXPERIENCE" style="width: 100%; background: #000; border: 1px solid #dc2626; padding: 15px; color: #fff; margin-bottom: 15px;"></textarea>
-        <button type="submit" style="width: 100%; background: #dc2626; color: #fff; padding: 15px; border: none; font-weight: 900; cursor: pointer;" class="minmatar-font">Submit To Command</button>
-      </form>
-    </div>
-
   </div>
 
   <script>
-    function update() {
-      const now = new Date();
-      document.getElementById('clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + now.getUTCMinutes().toString().padStart(2, '0') + ":" + now.getUTCSeconds().toString().padStart(2, '0');
-      
-      let target = new Date();
-      target.setUTCHours(1, 0, 0, 0);
-      target.setUTCDate(now.getUTCDate() + (7 + 0 - now.getUTCDay()) % 7);
-      if (now > target) target.setUTCDate(target.getUTCDate() + 7);
-      const diff = target - now;
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff / 3600000) % 24);
-      const m = Math.floor((diff / 60000) % 60);
-      document.getElementById('timer').innerText = `${d}D ${h}H ${m}M`;
-    }
-    setInterval(update, 1000); update();
+    const fits = {
+      stabber: `[Stabber, Alpha Kiter]\nDamage Control I\nGyrostabilizer I\nGyrostabilizer I\nTracking Enhancer I\n\nLarge F-S9 Regolith Compact Shield Extender\nTarget Painter I\nMultispectrum Shield Hardener I\n50MN Cold-Gas Enduring Microwarpdrive\n\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n\nMedium Core Defense Field Extender I\nMedium Capacitor Control Circuit I\nMedium Projectile Collision Accelerator I\n\nPhased Plasma M x1200\nEMP M x1200\nFusion M x1200`,
+      thrasher: `[Thrasher, Thrasher Alpha Instalock]\nGyrostabilizer II\nGyrostabilizer II\n\nF-90 Compact Sensor Booster\nF-90 Compact Sensor Booster\nInitiated Compact Warp Disruptor\n\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n\nSmall Projectile Collision Accelerator I\nSmall Targeting System Subcontroller I\nSmall Targeting System Subcontroller I\n\nEMP S x2140\nScan Resolution Script x2`,
+      scythe: `[Scythe, Simulated Scythe Fitting]\nDamage Control I\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\n\nLarge F-S9 Regolith Compact Shield Extender\n5MN Y-T8 Compact Microwarpdrive\nEutectic Compact Cap Recharger\nEutectic Compact Cap Recharger\nLarge F-S9 Regolith Compact Shield Extender\n\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\n\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I`,
+      burst: `[Burst, Alpha Shield Logi]\nDamage Control I\nOverdrive Injector System I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium Shield Extender I\nEutectic Compact Cap Recharger\n\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\n\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I`,
+      slasher: `[Slasher, Alpha Tackle / Scout Learner]\nDamage Control I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium F-S9 Regolith Compact Shield Extender\nFaint Epsilon Scoped Warp Scrambler\nFleeting Compact Stasis Webifier\n\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n\nSmall Core Defense Field Extender I\nSmall Particle Dispersion Projector I\n\nPhased Plasma S x1000\nEMP S x1000\nFusion S x1000`
+    };
 
-    document.getElementById('v2Form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      await fetch("https://discord.com/api/webhooks/1463689238452244544/dO39mbmttheDdUTSNphyEkTU6Z47hgtvPXLp0SWpPvrgF1E8hlNIeMFzrcoQKWsoijGO", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({embeds: [{title: "NEW PILOT DOSSIER", color: 16711680, fields: [{name: "Pilot", value: fd.get("name")}, {name: "Notes", value: fd.get("notes")}]}]})
-      });
-      alert("Transmission Sent."); e.target.reset();
-    });
+    function copyFit(ship) {
+      navigator.clipboard.writeText(fits[ship]);
+      const notice = document.getElementById('copy-notice');
+      notice.style.display = 'block';
+      setTimeout(() => { notice.style.display = 'none'; }, 2000);
+    }
+
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('eve-clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + now.getUTCMinutes().toString().padStart(2, '0') + ":" + now.getUTCSeconds().toString().padStart(2, '0');
+    }, 1000);
   </script>
 </div>
