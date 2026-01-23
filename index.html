@@ -16,8 +16,8 @@
     .kb-track { display: inline-block; animation: scroll-kb 40s linear infinite; color: #ff4d4d; font-size: 11px; }
     @keyframes scroll-kb { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-    /* DOCTRINE INTERFACE - HIDDEN BY DEFAULT */
-    #member-content { display: none; max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+    /* DOCTRINE INTERFACE */
+    #doctrine-content { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
     .doctrine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
     
     .ship-card { 
@@ -36,17 +36,7 @@
       opacity: 0; transition: 0.2s; 
     }
     .ship-card:hover .copy-overlay { opacity: 1; }
-
-    /* AUTH GATE - VISIBLE BY DEFAULT */
-    #auth-gate { padding: 120px 20px; text-align: center; display: block; }
     .sp-tag { background: #fbbf24; color: #000; padding: 2px 6px; font-size: 9px; font-weight: 900; }
-    
-    .tactical-input {
-        background: #000; border: 1px solid #dc2626; color: #fff; padding: 15px; 
-        width: 280px; text-align: center; font-family: 'Share Tech Mono', monospace; 
-        font-size: 18px; margin-bottom: 20px; outline: none;
-    }
-    .tactical-input:focus { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
   </style>
 
   <nav class="nav-v4">
@@ -59,21 +49,11 @@
 
   <div class="kb-ticker mono">
     <div class="kb-track">
-      ::: RESTRICTED ACCESS ::: DOCTRINE FITS ENCRYPTED ::: ENTER ALLIANCE PASSCODE TO VIEW SQUADRON ASSETS ::: DEPLOYMENT SATURDAY 01:00 UTC :::
+      ::: ALLIANCE DOCTRINE LIVE ::: CLICK SHIPS TO COPY FIT ::: STABBER SKIRMISH ::: LOGI SUPPORT ::: TACKLE READY ::: SATURDAY FLEET 01:00 UTC :::
     </div>
   </div>
 
-  <div id="auth-gate">
-    <div style="display: inline-block; border: 1px solid #333; padding: 60px; background: rgba(0,0,0,0.9); box-shadow: 0 0 50px rgba(0,0,0,1);">
-        <h2 class="minmatar-font" style="margin-bottom: 5px;">Secure Uplink</h2>
-        <p class="mono" style="color: #dc2626; font-size: 12px; margin-bottom: 30px;">[ CREDENTIALS REQUIRED ]</p>
-        <input type="password" id="pass-input" class="tactical-input" placeholder="********">
-        <br>
-        <button onclick="checkAuth()" style="background:#dc2626; color:#fff; border:none; padding:15px 50px; cursor:pointer; font-weight:900; width: 280px;" class="minmatar-font">DECRYPT DATA</button>
-    </div>
-  </div>
-
-  <div id="member-content">
+  <div id="doctrine-content">
     <div style="margin-bottom: 40px; border-left: 4px solid #dc2626; padding-left: 20px;">
         <h2 class="minmatar-font" style="color: #fff; margin:0;">Alliance Doctrine</h2>
         <p class="mono" style="color: #888;">Select a hull to copy EFT fit to clipboard</p>
@@ -145,19 +125,6 @@
         setTimeout(() => { t.style.display = 'none'; }, 2000);
       });
     }
-
-    function checkAuth() {
-      // SET YOUR PASSWORD HERE
-      if(document.getElementById('pass-input').value.toLowerCase() === 'syndicate123') {
-        document.getElementById('auth-gate').style.display = 'none';
-        document.getElementById('member-content').style.display = 'block';
-      } else { alert("INVALID ACCESS KEY"); }
-    }
-
-    // Enter key support for login
-    document.getElementById('pass-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') { checkAuth(); }
-    });
 
     setInterval(() => {
       const n = new Date();
