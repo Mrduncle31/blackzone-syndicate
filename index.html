@@ -1,134 +1,100 @@
-<div id="bzs-v4-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #e4e4e7; position: relative; overflow-x: hidden;">
+<div id="bzs-v3-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #e4e4e7; position: relative; overflow-x: hidden;">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
     
-    #bzs-v4-hub {
-      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://images.ctfassets.net/7lhcm73ukv5p/2NlM5xV6mS6YqU6S2Y6Q6S/9d3b7e4b5d3b7e4b5d3b7e4b5d3b7e4b/Minmatar_Station.jpg');
+    #bzs-v3-hub {
+      background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1');
       background-size: cover; background-attachment: fixed;
     }
 
-    .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 2px; }
+    .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; }
     .mono { font-family: 'Share Tech Mono', monospace !important; }
 
-    /* NAV & TICKER */
-    .nav-v4 { background: #000; border-bottom: 2px solid #dc2626; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-    .kb-ticker { background: rgba(220, 38, 38, 0.2); border-bottom: 1px solid #dc2626; padding: 12px; white-space: nowrap; overflow: hidden; }
-    .kb-track { display: inline-block; animation: scroll-kb 40s linear infinite; color: #ff4d4d; font-size: 11px; }
+    /* KILLBOARD TICKER */
+    .kb-ticker { background: rgba(220, 38, 38, 0.2); border-bottom: 1px solid #dc2626; padding: 10px; white-space: nowrap; overflow: hidden; position: relative; }
+    .kb-track { display: inline-block; animation: scroll-kb 30s linear infinite; color: #ff4d4d; font-size: 12px; }
     @keyframes scroll-kb { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-    /* DOCTRINE INTERFACE */
-    #doctrine-content { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-    .doctrine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    /* DOCTRINE SECTION */
+    .doctrine-container { padding: 40px; max-width: 1200px; margin: 0 auto; }
+    .doctrine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
     
     .ship-card { 
-      background: rgba(20, 20, 20, 0.95); border: 1px solid #333; padding: 0; 
-      cursor: pointer; position: relative; transition: 0.3s; overflow: hidden;
+      background: rgba(30, 30, 30, 0.8); border: 1px solid #444; padding: 25px; 
+      text-align: center; transition: 0.3s; cursor: pointer; position: relative;
     }
-    .ship-card:hover { border-color: #fbbf24; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .ship-card:hover { border-color: #fbbf24; background: rgba(251, 191, 36, 0.1); transform: translateY(-5px); }
+    .ship-card::after { content: "CLICK TO COPY EFT"; position: absolute; bottom: 5px; left: 0; width: 100%; font-size: 8px; color: #fbbf24; opacity: 0; }
+    .ship-card:hover::after { opacity: 1; }
+
+    .nav-v3 { background: #000; border-bottom: 2px solid #dc2626; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .btn-sp { background: #fbbf24; color: #000; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%); }
     
-    .ship-header { background: #dc2626; color: #fff; padding: 10px; font-size: 13px; font-weight: 900; display: flex; justify-content: space-between; align-items: center; }
-    .ship-body { padding: 20px; border-top: 1px solid #333; }
-    
-    .copy-overlay { 
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-      background: rgba(251, 191, 36, 0.95); color: #000; display: flex; 
-      align-items: center; justify-content: center; font-weight: 900; 
-      opacity: 0; transition: 0.2s; 
-    }
-    .ship-card:hover .copy-overlay { opacity: 1; }
-    .sp-tag { background: #fbbf24; color: #000; padding: 2px 6px; font-size: 9px; font-weight: 900; }
+    #copy-toast { display:none; position: fixed; bottom: 20px; right: 20px; background: #dc2626; color: #fff; padding: 15px 25px; font-family: 'Orbitron'; font-size: 12px; z-index: 1000; border: 1px solid #fff; }
   </style>
 
-  <nav class="nav-v4">
-    <div class="minmatar-font" style="color: #dc2626; font-size: 22px;">BZS // COMMAND</div>
-    <div style="display: flex; gap: 30px; align-items: center;">
-      <span id="eve-clock" class="mono" style="color: #fff;">00:00:00</span>
-      <a href="https://www.eveonline.com/signup?invc=ffab12e3-0b30-4a9a-bc93-1532ff230f06" target="_blank" style="background:#fbbf24; color:#000; padding:10px 20px; text-decoration:none; font-weight:900; font-size:11px;" class="minmatar-font">GET 1M SP</a>
+  <div class="kb-ticker mono">
+    <div class="kb-track" id="kb-data">
+      ::: ALLIANCE UPLINK ACTIVE ::: SCANNING LOCAL SYSTEMS ::: DOCTRINE UPDATED ::: 1M SP LINK READY ::: 
+    </div>
+  </div>
+
+  <nav class="nav-v3">
+    <div class="minmatar-font" style="color: #dc2626; font-size: 20px;">BZS COMMAND HUB</div>
+    <div style="display: flex; gap: 20px; align-items: center;">
+      <span id="eve-clock" class="mono" style="color: #888;">00:00:00</span>
+      <a href="https://www.eveonline.com/signup?invc=ffab12e3-0b30-4a9a-bc93-1532ff230f06" target="_blank" class="btn-sp">CLAIM 1M SP</a>
     </div>
   </nav>
 
-  <div class="kb-ticker mono">
-    <div class="kb-track">
-      ::: ALLIANCE DOCTRINE LIVE ::: CLICK SHIPS TO COPY FIT ::: STABBER SKIRMISH ::: LOGI SUPPORT ::: TACKLE READY ::: SATURDAY FLEET 01:00 UTC :::
-    </div>
-  </div>
-
-  <div id="doctrine-content">
-    <div style="margin-bottom: 40px; border-left: 4px solid #dc2626; padding-left: 20px;">
-        <h2 class="minmatar-font" style="color: #fff; margin:0;">Alliance Doctrine</h2>
-        <p class="mono" style="color: #888;">Select a hull to copy EFT fit to clipboard</p>
+  <div class="doctrine-container">
+    <div style="border-left: 4px solid #dc2626; padding-left: 20px; margin-bottom: 40px;">
+      <h2 class="minmatar-font" style="color: #fff; margin: 0;">Fleet Doctrine</h2>
+      <p class="mono" style="color: #888;">Direct access to alliance-standard fittings.</p>
     </div>
 
     <div class="doctrine-grid">
-      <div class="ship-card" onclick="copyFit('stabber_alpha')">
-        <div class="ship-header minmatar-font">STABBER <span class="sp-tag">ALPHA</span></div>
-        <div class="ship-body">
-            <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Skirmish / Kiter</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">Primary DPS. Maintain distance and apply damage.</div>
-        </div>
-        <div class="copy-overlay minmatar-font">COPY FIT</div>
+      <div class="ship-card" onclick="copyFit('stabber')">
+        <div class="minmatar-font" style="color: #dc2626;">Stabber</div>
+        <div class="mono" style="font-size: 10px; color: #aaa;">Alpha Kiter</div>
       </div>
-
-      <div class="ship-card" onclick="copyFit('thrasher_lock')">
-        <div class="ship-header minmatar-font">THRASHER <span class="sp-tag">INSTALOCK</span></div>
-        <div class="ship-body">
-            <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Gate Defense</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">High scan res. Catches fast frigates at gates.</div>
-        </div>
-        <div class="copy-overlay minmatar-font">COPY FIT</div>
+      <div class="ship-card" onclick="copyFit('thrasher')">
+        <div class="minmatar-font" style="color: #dc2626;">Thrasher</div>
+        <div class="mono" style="font-size: 10px; color: #aaa;">Instalock</div>
       </div>
-
-      <div class="ship-card" onclick="copyFit('scythe_logi')">
-        <div class="ship-header minmatar-font">SCYTHE <span class="sp-tag">CRUISER LOGI</span></div>
-        <div class="ship-body">
-            <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Shield Reps</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">Main logistics hull. Stay behind the Stabbers.</div>
-        </div>
-        <div class="copy-overlay minmatar-font">COPY FIT</div>
+      <div class="ship-card" onclick="copyFit('scythe')">
+        <div class="minmatar-font" style="color: #dc2626;">Scythe</div>
+        <div class="mono" style="font-size: 10px; color: #aaa;">Cruiser Logi</div>
       </div>
-
-      <div class="ship-card" onclick="copyFit('burst_logi')">
-        <div class="ship-header minmatar-font">BURST <span class="sp-tag">ALPHA LOGI</span></div>
-        <div class="ship-body">
-            <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Light Reps</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">Fast support for frigate and cruiser fleets.</div>
-        </div>
-        <div class="copy-overlay minmatar-font">COPY FIT</div>
-      </div>
-
-      <div class="ship-card" onclick="copyFit('slasher_tackle')">
-        <div class="ship-header minmatar-font">SLASHER <span class="sp-tag">TACKLE</span></div>
-        <div class="ship-body">
-            <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Scram & Web</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">Fast tackle. Catch targets so the fleet can kill.</div>
-        </div>
-        <div class="copy-overlay minmatar-font">COPY FIT</div>
+      <div class="ship-card" onclick="copyFit('slasher')">
+        <div class="minmatar-font" style="color: #dc2626;">Slasher</div>
+        <div class="mono" style="font-size: 10px; color: #aaa;">Tackle / Scout</div>
       </div>
     </div>
   </div>
 
-  <div id="copy-toast" style="display:none; position: fixed; bottom: 20px; right: 20px; background: #fbbf24; color: #000; padding: 15px 30px; font-weight: 900; z-index: 1000;" class="minmatar-font">FIT COPIED</div>
+  <div id="copy-toast">FIT COPIED TO CLIPBOARD</div>
 
   <script>
+    // FITS DATABASE
     const fits = {
-      stabber_alpha: `[Stabber, Alpha Kiter]\nDamage Control I\nGyrostabilizer I\nGyrostabilizer I\nTracking Enhancer I\n\nLarge F-S9 Regolith Compact Shield Extender\nTarget Painter I\nMultispectrum Shield Hardener I\n50MN Cold-Gas Enduring Microwarpdrive\n\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n\nMedium Core Defense Field Extender I\nMedium Capacitor Control Circuit I\nMedium Projectile Collision Accelerator I\n\nPhased Plasma M x1200\nEMP M x1200\nFusion M x1200`,
-      thrasher_lock: `[Thrasher, Thrasher Alpha Instalock]\nGyrostabilizer II\nGyrostabilizer II\n\nF-90 Compact Sensor Booster\nF-90 Compact Sensor Booster\nInitiated Compact Warp Disruptor\n\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n\nSmall Projectile Collision Accelerator I\nSmall Targeting System Subcontroller I\nSmall Targeting System Subcontroller I\n\nEMP S x2140\nScan Resolution Script x2`,
-      scythe_logi: `[Scythe, Simulated Scythe Fitting]\nDamage Control I\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\n\nLarge F-S9 Regolith Compact Shield Extender\n5MN Y-T8 Compact Microwarpdrive\nEutectic Compact Cap Recharger\nEutectic Compact Cap Recharger\nLarge F-S9 Regolith Compact Shield Extender\n\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\n\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I`,
-      burst_logi: `[Burst, Alpha Shield Logi]\nDamage Control I\nOverdrive Injector System I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium Shield Extender I\nEutectic Compact Cap Recharger\n\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\n\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I`,
-      slasher_tackle: `[Slasher, Alpha Tackle / Scout Learner]\nDamage Control I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium F-S9 Regolith Compact Shield Extender\nFaint Epsilon Scoped Warp Scrambler\nFleeting Compact Stasis Webifier\n\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n\nSmall Core Defense Field Extender I\nSmall Particle Dispersion Projector I\n\nPhased Plasma S x1000\nEMP S x1000\nFusion S x1000`
+      stabber: `[Stabber, Alpha Kiter]\nDamage Control I\nGyrostabilizer I\nGyrostabilizer I\nTracking Enhancer I\n\nLarge F-S9 Regolith Compact Shield Extender\nTarget Painter I\nMultispectrum Shield Hardener I\n50MN Cold-Gas Enduring Microwarpdrive\n\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n\nMedium Core Defense Field Extender I\nMedium Capacitor Control Circuit I\nMedium Projectile Collision Accelerator I\n\nPhased Plasma M x1200\nEMP M x1200\nFusion M x1200`,
+      thrasher: `[Thrasher, Thrasher Alpha Instalock]\nGyrostabilizer II\nGyrostabilizer II\n\nF-90 Compact Sensor Booster\nF-90 Compact Sensor Booster\nInitiated Compact Warp Disruptor\n\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n\nSmall Projectile Collision Accelerator I\nSmall Targeting System Subcontroller I\nSmall Targeting System Subcontroller I\n\nEMP S x2140\nScan Resolution Script x2`,
+      scythe: `[Scythe, Simulated Scythe Fitting]\nDamage Control I\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\n\nLarge F-S9 Regolith Compact Shield Extender\n5MN Y-T8 Compact Microwarpdrive\nEutectic Compact Cap Recharger\nEutectic Compact Cap Recharger\nLarge F-S9 Regolith Compact Shield Extender\n\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\n\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I`,
+      slasher: `[Slasher, Alpha Tackle / Scout Learner]\nDamage Control I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium F-S9 Regolith Compact Shield Extender\nFaint Epsilon Scoped Warp Scrambler\nFleeting Compact Stasis Webifier\n\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n\nSmall Core Defense Field Extender I\nSmall Particle Dispersion Projector I\n\nPhased Plasma S x1000\nEMP S x1000\nFusion S x1000`
     };
 
-    function copyFit(key) {
-      navigator.clipboard.writeText(fits[key]).then(() => {
-        const t = document.getElementById('copy-toast');
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 2000);
-      });
+    function copyFit(ship) {
+      navigator.clipboard.writeText(fits[ship]);
+      const toast = document.getElementById('copy-toast');
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
     }
 
-    setInterval(() => {
-      const n = new Date();
-      document.getElementById('eve-clock').innerText = n.getUTCHours().toString().padStart(2, '0') + ":" + n.getUTCMinutes().toString().padStart(2, '0') + ":" + n.getUTCSeconds().toString().padStart(2, '0');
-    }, 1000);
+    function tick() {
+      const now = new Date();
+      document.getElementById('eve-clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + now.getUTCMinutes().toString().padStart(2, '0') + ":" + now.getUTCSeconds().toString().padStart(2, '0');
+    }
+    setInterval(tick, 1000);
   </script>
 </div>
