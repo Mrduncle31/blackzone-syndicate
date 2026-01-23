@@ -3,19 +3,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
     
     #bzs-v4-hub {
-      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1');
+      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://images.ctfassets.net/7lhcm73ukv5p/2NlM5xV6mS6YqU6S2Y6Q6S/9d3b7e4b5d3b7e4b5d3b7e4b5d3b7e4b/Minmatar_Station.jpg');
       background-size: cover; background-attachment: fixed;
     }
 
     .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 2px; }
     .mono { font-family: 'Share Tech Mono', monospace !important; }
 
+    /* NAV & TICKER */
     .nav-v4 { background: #000; border-bottom: 2px solid #dc2626; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
     .kb-ticker { background: rgba(220, 38, 38, 0.2); border-bottom: 1px solid #dc2626; padding: 12px; white-space: nowrap; overflow: hidden; }
     .kb-track { display: inline-block; animation: scroll-kb 40s linear infinite; color: #ff4d4d; font-size: 11px; }
     @keyframes scroll-kb { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-    .locked-content { display: none; max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+    /* DOCTRINE INTERFACE - HIDDEN BY DEFAULT */
+    #member-content { display: none; max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
     .doctrine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
     
     .ship-card { 
@@ -35,8 +37,16 @@
     }
     .ship-card:hover .copy-overlay { opacity: 1; }
 
-    #auth-gate { padding: 120px 20px; text-align: center; }
+    /* AUTH GATE - VISIBLE BY DEFAULT */
+    #auth-gate { padding: 120px 20px; text-align: center; display: block; }
     .sp-tag { background: #fbbf24; color: #000; padding: 2px 6px; font-size: 9px; font-weight: 900; }
+    
+    .tactical-input {
+        background: #000; border: 1px solid #dc2626; color: #fff; padding: 15px; 
+        width: 280px; text-align: center; font-family: 'Share Tech Mono', monospace; 
+        font-size: 18px; margin-bottom: 20px; outline: none;
+    }
+    .tactical-input:focus { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); }
   </style>
 
   <nav class="nav-v4">
@@ -49,22 +59,23 @@
 
   <div class="kb-ticker mono">
     <div class="kb-track">
-      ::: GATE CAMP DOCTRINE ACTIVE: INSTALOCK THRASHER UPDATED ::: TACKLE ONLINE ::: LOGI ONLINE ::: SATURDAY FLEET 01:00 UTC :::
+      ::: RESTRICTED ACCESS ::: DOCTRINE FITS ENCRYPTED ::: ENTER ALLIANCE PASSCODE TO VIEW SQUADRON ASSETS ::: DEPLOYMENT SATURDAY 01:00 UTC :::
     </div>
   </div>
 
   <div id="auth-gate">
-    <div style="display: inline-block; border: 1px solid #333; padding: 40px; background: rgba(0,0,0,0.8);">
-        <h2 class="minmatar-font">Tactical Access Required</h2>
-        <input type="password" id="pass-input" style="background:#000; border:1px solid #dc2626; color:#fff; padding:15px; width:250px; text-align:center; margin: 20px 0;" placeholder="PASSCODE">
+    <div style="display: inline-block; border: 1px solid #333; padding: 60px; background: rgba(0,0,0,0.9); box-shadow: 0 0 50px rgba(0,0,0,1);">
+        <h2 class="minmatar-font" style="margin-bottom: 5px;">Secure Uplink</h2>
+        <p class="mono" style="color: #dc2626; font-size: 12px; margin-bottom: 30px;">[ CREDENTIALS REQUIRED ]</p>
+        <input type="password" id="pass-input" class="tactical-input" placeholder="********">
         <br>
-        <button onclick="checkAuth()" style="background:#dc2626; color:#fff; border:none; padding:15px 50px; cursor:pointer; font-weight:900;" class="minmatar-font">DECRYPT</button>
+        <button onclick="checkAuth()" style="background:#dc2626; color:#fff; border:none; padding:15px 50px; cursor:pointer; font-weight:900; width: 280px;" class="minmatar-font">DECRYPT DATA</button>
     </div>
   </div>
 
-  <div id="member-content" class="locked-content">
-    <div style="margin-bottom: 40px;">
-        <h2 class="minmatar-font" style="color: #dc2626; margin:0;">Alliance Doctrine</h2>
+  <div id="member-content">
+    <div style="margin-bottom: 40px; border-left: 4px solid #dc2626; padding-left: 20px;">
+        <h2 class="minmatar-font" style="color: #fff; margin:0;">Alliance Doctrine</h2>
         <p class="mono" style="color: #888;">Select a hull to copy EFT fit to clipboard</p>
     </div>
 
@@ -82,7 +93,7 @@
         <div class="ship-header minmatar-font">THRASHER <span class="sp-tag">INSTALOCK</span></div>
         <div class="ship-body">
             <div class="mono" style="color: #fbbf24; margin-bottom: 10px;">Role: Gate Defense</div>
-            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">High scan res. Catches fast frigates and shuttles at gates.</div>
+            <div style="font-size: 12px; color: #aaa; line-height: 1.4;">High scan res. Catches fast frigates at gates.</div>
         </div>
         <div class="copy-overlay minmatar-font">COPY FIT</div>
       </div>
@@ -113,7 +124,6 @@
         </div>
         <div class="copy-overlay minmatar-font">COPY FIT</div>
       </div>
-
     </div>
   </div>
 
@@ -122,13 +132,9 @@
   <script>
     const fits = {
       stabber_alpha: `[Stabber, Alpha Kiter]\nDamage Control I\nGyrostabilizer I\nGyrostabilizer I\nTracking Enhancer I\n\nLarge F-S9 Regolith Compact Shield Extender\nTarget Painter I\nMultispectrum Shield Hardener I\n50MN Cold-Gas Enduring Microwarpdrive\n\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n220mm Medium Gallium Machine Gun\n\nMedium Core Defense Field Extender I\nMedium Capacitor Control Circuit I\nMedium Projectile Collision Accelerator I\n\nPhased Plasma M x1200\nEMP M x1200\nFusion M x1200`,
-      
       thrasher_lock: `[Thrasher, Thrasher Alpha Instalock]\nGyrostabilizer II\nGyrostabilizer II\n\nF-90 Compact Sensor Booster\nF-90 Compact Sensor Booster\nInitiated Compact Warp Disruptor\n\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n280mm Carbine Howitzer I\n\nSmall Projectile Collision Accelerator I\nSmall Targeting System Subcontroller I\nSmall Targeting System Subcontroller I\n\nEMP S x2140\nScan Resolution Script x2`,
-
       scythe_logi: `[Scythe, Simulated Scythe Fitting]\nDamage Control I\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\nMark I Compact Capacitor Power Relay\n\nLarge F-S9 Regolith Compact Shield Extender\n5MN Y-T8 Compact Microwarpdrive\nEutectic Compact Cap Recharger\nEutectic Compact Cap Recharger\nLarge F-S9 Regolith Compact Shield Extender\n\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\nMedium S95a Scoped Remote Shield Booster\n\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I\nMedium Capacitor Control Circuit I`,
-
       burst_logi: `[Burst, Alpha Shield Logi]\nDamage Control I\nOverdrive Injector System I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium Shield Extender I\nEutectic Compact Cap Recharger\n\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\nSmall Murky Compact Remote Shield Booster\n\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit I`,
-
       slasher_tackle: `[Slasher, Alpha Tackle / Scout Learner]\nDamage Control I\nMicro Auxiliary Power Core I\n\n5MN Y-T8 Compact Microwarpdrive\nMedium F-S9 Regolith Compact Shield Extender\nFaint Epsilon Scoped Warp Scrambler\nFleeting Compact Stasis Webifier\n\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n150mm Light AutoCannon I\n\nSmall Core Defense Field Extender I\nSmall Particle Dispersion Projector I\n\nPhased Plasma S x1000\nEMP S x1000\nFusion S x1000`
     };
 
@@ -141,11 +147,17 @@
     }
 
     function checkAuth() {
+      // SET YOUR PASSWORD HERE
       if(document.getElementById('pass-input').value.toLowerCase() === 'syndicate123') {
         document.getElementById('auth-gate').style.display = 'none';
         document.getElementById('member-content').style.display = 'block';
       } else { alert("INVALID ACCESS KEY"); }
     }
+
+    // Enter key support for login
+    document.getElementById('pass-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') { checkAuth(); }
+    });
 
     setInterval(() => {
       const n = new Date();
