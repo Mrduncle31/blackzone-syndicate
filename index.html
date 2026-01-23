@@ -1,125 +1,170 @@
-<div id="bzs-v3-hub" style="all: initial; display: block; background: #050505; min-height: 100vh; font-family: 'Inter', sans-serif; color: #e4e4e7; position: relative; overflow-x: hidden;">
+<div id="bzs-master-portal" style="all: initial; display: block; background: #050505; min-height: 100vh; padding: 0; font-family: 'Inter', sans-serif; color: #e4e4e7; line-height: 1.6;">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;700;900&display=swap');
     
-    #bzs-v3-hub {
-      background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1');
-      background-size: cover; background-attachment: fixed;
+    #bzs-master-portal * { box-sizing: border-box; }
+    #bzs-master-portal .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
+    
+    #bzs-master-portal { 
+      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1') !important; 
+      background-size: cover !important; 
+      background-position: center !important;
+      background-attachment: fixed !important; 
     }
 
-    .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; }
-    .mono { font-family: 'Share Tech Mono', monospace !important; }
-
-    /* KILLBOARD TICKER */
-    .kb-ticker { background: rgba(220, 38, 38, 0.2); border-bottom: 1px solid #dc2626; padding: 10px; white-space: nowrap; overflow: hidden; position: relative; }
-    .kb-track { display: inline-block; animation: scroll-kb 30s linear infinite; color: #ff4d4d; font-size: 12px; }
-    @keyframes scroll-kb { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-    /* AUTH SECTION */
-    #auth-gate { padding: 100px 20px; text-align: center; }
-    .locked-content { display: none; padding: 40px; }
-    .tactical-input { background: #000; border: 1px solid #dc2626; color: #fff; padding: 15px; width: 250px; text-align: center; font-family: monospace; }
+    /* TOP NAVIGATION */
+    #bzs-master-portal .top-nav { background: #dc2626; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 999; border-bottom: 2px solid #fff; }
+    #bzs-master-portal .time-block { display: flex; gap: 30px; align-items: center; }
+    #bzs-master-portal .clock-label { font-size: 10px; font-weight: 900; display: block; margin-bottom: -5px; opacity: 0.8; }
     
-    /* DOCTRINE CARDS */
-    .doctrine-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-    .ship-card { background: rgba(30, 30, 30, 0.8); border: 1px solid #444; padding: 20px; text-align: center; transition: 0.3s; }
-    .ship-card:hover { border-color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+    #bzs-master-portal .nav-buttons { display: flex; gap: 15px; }
+    #bzs-master-portal .discord-btn { background: #fff; color: #dc2626; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; border-radius: 2px; text-transform: uppercase; transition: 0.2s; }
+    
+    /* SKILL POINT BUTTON */
+    #bzs-master-portal .sp-btn { background: #fbbf24; color: #000; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; border-radius: 2px; text-transform: uppercase; border: 1px solid #fff; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); animation: glow 2s infinite; }
+    @keyframes glow { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
 
-    .nav-v3 { background: #000; border-bottom: 2px solid #dc2626; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .btn-sp { background: #fbbf24; color: #000; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%); }
+    #bzs-master-portal .content-max { max-width: 1400px; margin: 0 auto; padding: 60px 20px; }
+    
+    /* ACTIVITY PANELS */
+    #bzs-master-portal .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
+    #bzs-master-portal .panel { background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; border-top: 5px solid #dc2626 !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important; overflow: hidden; }
+    #bzs-master-portal .feature-img { width: 100%; height: 320px; object-fit: cover; border-bottom: 2px solid #dc2626; transition: 0.5s; }
+    #bzs-master-portal .panel-body { padding: 30px; }
+
+    /* RECRUITMENT FORM */
+    #bzs-master-portal .app-panel { background: rgba(12, 12, 12, 0.98); border: 1px solid #222; border-top: 5px solid #fff; padding: 50px; }
+    #bzs-master-portal input, #bzs-master-portal textarea, #bzs-master-portal select { width: 100% !important; background: #000 !important; border: 1px solid #444 !important; color: #fff !important; padding: 15px !important; margin-bottom: 20px !important; }
+    #bzs-master-portal button { background: #dc2626 !important; color: #fff !important; width: 100% !important; padding: 20px !important; border: none !important; font-weight: 900 !important; cursor: pointer; text-transform: uppercase; font-size: 18px; }
+
+    @media (max-width: 1100px) { .main-grid, .top-nav { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 20px; } .nav-buttons { justify-content: center; } }
   </style>
 
-  <div class="kb-ticker mono">
-    <div class="kb-track" id="kb-data">
-      LOADING RECENT KILLBOARD INTELLIGENCE... ::: SYSTEM STATUS: NOMINAL ::: ALLIANCE ACTIVE ::: 
+  <div class="top-nav">
+    <div class="time-block">
+        <div>
+            <span class="clock-label minmatar-font">Current EVE Time</span>
+            <span id="current-eve-clock" class="minmatar-font" style="font-size: 20px; color: #fff;">00:00:00</span>
+        </div>
+        <div style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 30px;">
+            <span class="clock-label minmatar-font">Fleet Deployment</span>
+            <span id="eve-fleet-timer" class="minmatar-font" style="font-size: 20px; color: #fff;">00D 00H 00M 00S</span>
+        </div>
+    </div>
+    <div class="nav-buttons">
+        <a href="https://www.eveonline.com/signup?invc=ffab12e3-0b30-4a9a-bc93-1532ff230f06" target="_blank" class="sp-btn minmatar-font">Claim 1,000,000 SP</a>
+        <a href="https://discord.gg/v6M83zhBd9" target="_blank" class="discord-btn minmatar-font">Join Discord</a>
     </div>
   </div>
 
-  <nav class="nav-v3">
-    <div class="minmatar-font" style="color: #dc2626; font-size: 20px;">BZS COMMAND</div>
-    <div style="display: flex; gap: 20px; align-items: center;">
-      <span id="eve-clock" class="mono" style="color: #888;">00:00:00</span>
-      <a href="https://www.eveonline.com/signup?invc=ffab12e3-0b30-4a9a-bc93-1532ff230f06" target="_blank" class="btn-sp">CLAIM 1M SP</a>
-    </div>
-  </nav>
-
-  <div id="auth-gate">
-    <h2 class="minmatar-font">Tactical Access Required</h2>
-    <p class="mono" style="color: #888; margin-bottom: 20px;">Enter Alliance Passcode for Doctrine & Intel</p>
-    <input type="password" id="pass-input" class="tactical-input" placeholder="********">
-    <button onclick="checkAuth()" style="background: #dc2626; color: #fff; border: none; padding: 15px 30px; cursor: pointer; font-weight: 900;" class="minmatar-font">Decrypt</button>
-  </div>
-
-  <div id="member-content" class="locked-content">
-    <div style="border-left: 4px solid #fbbf24; padding-left: 20px; margin-bottom: 40px;">
-      <h2 class="minmatar-font" style="color: #fbbf24;">Current Alliance Doctrines</h2>
-      <p class="mono">Click ship to view fit / Copy to clipboard</p>
+  <div class="content-max">
+    
+    <div style="text-align: center; margin-bottom: 80px;">
+        <h1 class="minmatar-font" style="font-size: clamp(40px, 8vw, 90px); margin: 0; color: #fff; line-height: 1;">BLACKZONE SYNDICATE</h1>
+        <p style="letter-spacing: 12px; color: #dc2626; font-weight: 900; margin-top: 20px;">ALLIANCE SUPREME COMMAND</p>
     </div>
 
-    <div class="doctrine-grid">
-      <div class="ship-card" onclick="alert('Hurricane Fit Copied!')">
-        <div class="minmatar-font">Hurricane</div>
-        <div style="font-size: 10px; color: #888;">Fleet Artillery</div>
+    <div class="main-grid">
+      <div class="panel">
+        <img src="https://lh3.googleusercontent.com/d/1q4Sm-xccG73QA7sw57Z2TxSnjh49duNG" class="feature-img" alt="War Economy">
+        <div class="panel-body">
+          <h3 class="minmatar-font" style="color:#fff;">Homefront Ops</h3>
+          <p style="color:#888; font-size: 14px;">High-speed economic wings. We ensure the SRP wallet is always full.</p>
+        </div>
       </div>
-      <div class="ship-card" onclick="alert('Stabber Fit Copied!')">
-        <div class="minmatar-font">Stabber</div>
-        <div style="font-size: 10px; color: #888;">Anti-Support</div>
+
+      <div class="panel">
+        <img src="https://lh3.googleusercontent.com/d/1f125lkW085Aw8nCVdstRWwWUw0oGXSUI" class="feature-img" alt="Exploration">
+        <div class="panel-body">
+          <h3 class="minmatar-font" style="color:#fff;">DED Hunting</h3>
+          <p style="color:#888; font-size: 14px;">Hunting high-tier combat sites and securing deadspace technology.</p>
+        </div>
       </div>
-      <div class="ship-card" onclick="alert('Scythe Fit Copied!')">
-        <div class="minmatar-font">Scythe</div>
-        <div style="font-size: 10px; color: #888;">Logistics</div>
-      </div>
-      <div class="ship-card" onclick="alert('Thrasher Fit Copied!')">
-        <div class="minmatar-font">Thrasher</div>
-        <div style="font-size: 10px; color: #888;">Screening</div>
+
+      <div class="panel">
+        <img src="https://lh3.googleusercontent.com/d/1cZor_BxlVIP-N4psTJq-NWW306X_92kw" class="feature-img" alt="Main Fleet">
+        <div class="panel-body">
+          <h3 class="minmatar-font" style="color:#fff;">Alliance Fleet</h3>
+          <p style="color:#888; font-size: 14px;">Faction Warfare Supremacy. Official Fleets every Saturday at 01:00 EVE Time.</p>
+        </div>
       </div>
     </div>
 
-    <div style="margin-top: 60px; background: rgba(220, 38, 38, 0.1); padding: 30px; border: 1px dashed #dc2626;">
-      <h3 class="minmatar-font">Current Intel Briefing</h3>
-      <p class="mono" style="font-size: 13px;">> Primary Warzone: Metropolis / Heimatar<br>> Active Enemy: Amarr Militia / Local Pirates<br>> Rules of Engagement: Fire on Sight (FoS)</p>
+    <div class="app-panel">
+      <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
+        <div>
+          <h2 class="minmatar-font" style="font-size: 32px; color: #fff; margin-bottom: 20px;">SECURE ENLISTMENT</h2>
+          <p style="color: #888; margin-bottom: 25px;">Are you a new pilot? Use the "Claim SP" button above to start with 1 million free skill points before joining.</p>
+          <ul style="color: #dc2626; font-weight: 700; list-style: none; padding: 0; line-height: 2;">
+            <li>> Saturday Deployment: 01:00 EVE</li>
+            <li>> Active Homefront PVE Wings</li>
+            <li>> Full SRP Coverage</li>
+          </ul>
+        </div>
+        <form id="masterBzsForm">
+          <select name="type">
+            <option value="Corporation Application">Corporation Enlistment</option>
+            <option value="Pilot Application">Individual Pilot Application</option>
+          </select>
+          <input type="text" name="name" placeholder="Character Name / Ticker" required>
+          <textarea name="notes" rows="4" placeholder="Experience & Ship Interests..."></textarea>
+          <button type="submit" id="submitBtn">Transmit to Command</button>
+        </form>
+      </div>
     </div>
   </div>
 
   <script>
-    // 1. CLOCK
-    function tick() {
+    function updateBzsClocks() {
       const now = new Date();
-      document.getElementById('eve-clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + now.getUTCMinutes().toString().padStart(2, '0') + ":" + now.getUTCSeconds().toString().padStart(2, '0');
-    }
-    setInterval(tick, 1000);
+      document.getElementById('current-eve-clock').innerText = now.getUTCHours().toString().padStart(2, '0') + ":" + 
+        now.getUTCMinutes().toString().padStart(2, '0') + ":" + 
+        now.getUTCSeconds().toString().padStart(2, '0');
 
-    // 2. AUTH LOGIC (Change 'syndicate123' to your desired password)
-    function checkAuth() {
-      const pass = document.getElementById('pass-input').value;
-      if(pass.toLowerCase() === 'syndicate123') {
-        document.getElementById('auth-gate').style.display = 'none';
-        document.getElementById('member-content').style.display = 'block';
-      } else {
-        alert("ACCESS DENIED: INVALID CREDENTIALS");
-      }
+      let target = new Date();
+      target.setUTCHours(1, 0, 0, 0);
+      target.setUTCDate(now.getUTCDate() + (7 + 0 - now.getUTCDay()) % 7);
+      if (now > target) target.setUTCDate(target.getUTCDate() + 7);
+      
+      const diff = target - now;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('eve-fleet-timer').innerText = `${d}D ${h}H ${m}M ${s}S`;
     }
+    
+    setInterval(updateBzsClocks, 1000);
+    updateBzsClocks();
 
-    // 3. KILLBOARD TICKER LOGIC (Simplified Mockup - Replace YOUR_ALLIANCE_ID)
-    async function fetchKB() {
-      const ticker = document.getElementById('kb-data');
+    document.getElementById('masterBzsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.innerText = "TRANSMITTING...";
+      const fd = new FormData(e.target);
+      const url = "https://discord.com/api/webhooks/1463689238452244544/dO39mbmttheDdUTSNphyEkTU6Z47hgtvPXLp0SWpPvrgF1E8hlNIeMFzrcoQKWsoijGO";
+      
       try {
-        // Replace 99011910 with your Alliance ID from zKillboard URL
-        const response = await fetch('https://zkillboard.com/api/alliance/99011910/limit/10/');
-        // Note: zKill often requires a custom User-Agent which browser JS can't always do directly.
-        // If the live API blocks you, this ticker stays as a cool randomized tactical string:
-        const intel = [
-          "STABBER DESTROYED IN HUOLA", 
-          "HURRICANE LOSS SECURED IN VULN", 
-          "BZS FLEET ACTIVE IN AMAMAKE",
-          "NEW RECRUITS DETECTED IN DOCK",
-          "DED 6/10 COMPLEX CLEARED"
-        ];
-        ticker.innerText = intel.join(" ::: ") + " ::: " + intel.join(" ::: ");
-      } catch (e) {
-        console.log("Ticker running on internal fallback.");
-      }
-    }
-    fetchKB();
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            embeds: [{
+              title: "🚀 NEW SYNDICATE ENLISTMENT",
+              color: 14427686, 
+              fields: [
+                { name: "Type", value: fd.get("type"), inline: true },
+                { name: "Pilot/Corp", value: fd.get("name"), inline: true },
+                { name: "Dossier", value: fd.get("notes") || "No notes provided." }
+              ],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+        alert("Transmission Success.");
+        e.target.reset();
+      } catch (err) { alert("Comms Failure."); }
+      btn.innerText = "Transmit to Command";
+    });
   </script>
 </div>
