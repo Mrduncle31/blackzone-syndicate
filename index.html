@@ -6,7 +6,7 @@
     #bzs-master-portal .minmatar-font { font-family: 'Orbitron', sans-serif !important; text-transform: uppercase; letter-spacing: 3px; }
     
     #bzs-master-portal { 
-      background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('https://lh3.googleusercontent.com/d/1XyO3tW2iX-pY2V3vW_v_C1vV-wRzYvB1') !important; 
+      background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://i.imgur.com/W2U2L4h.jpg') !important; 
       background-size: cover !important; 
       background-position: center !important;
       background-attachment: fixed !important; 
@@ -20,7 +20,6 @@
     #bzs-master-portal .nav-buttons { display: flex; gap: 15px; }
     #bzs-master-portal .discord-btn { background: #fff; color: #dc2626; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; border-radius: 2px; text-transform: uppercase; transition: 0.2s; }
     
-    /* SKILL POINT BUTTON */
     #bzs-master-portal .sp-btn { background: #fbbf24; color: #000; padding: 10px 20px; text-decoration: none; font-weight: 900; font-size: 11px; border-radius: 2px; text-transform: uppercase; border: 1px solid #fff; box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); animation: glow 2s infinite; }
     @keyframes glow { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
 
@@ -29,7 +28,8 @@
     /* ACTIVITY PANELS */
     #bzs-master-portal .main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
     #bzs-master-portal .panel { background: rgba(12, 12, 12, 0.98) !important; border: 1px solid #222 !important; border-top: 5px solid #dc2626 !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9) !important; overflow: hidden; }
-    #bzs-master-portal .feature-img { width: 100%; height: 320px; object-fit: cover; border-bottom: 2px solid #dc2626; transition: 0.5s; }
+    #bzs-master-portal .feature-img { width: 100%; height: 320px; object-fit: cover; border-bottom: 2px solid #dc2626; transition: 0.5s; opacity: 0.8; }
+    #bzs-master-portal .panel:hover .feature-img { opacity: 1; transform: scale(1.02); }
     #bzs-master-portal .panel-body { padding: 30px; }
 
     /* RECRUITMENT FORM */
@@ -37,7 +37,7 @@
     #bzs-master-portal input, #bzs-master-portal textarea, #bzs-master-portal select { width: 100% !important; background: #000 !important; border: 1px solid #444 !important; color: #fff !important; padding: 15px !important; margin-bottom: 20px !important; }
     #bzs-master-portal button { background: #dc2626 !important; color: #fff !important; width: 100% !important; padding: 20px !important; border: none !important; font-weight: 900 !important; cursor: pointer; text-transform: uppercase; font-size: 18px; }
 
-    @media (max-width: 1100px) { .main-grid, .top-nav { grid-template-columns: 1fr; flex-direction: column; text-align: center; gap: 20px; } .nav-buttons { justify-content: center; } }
+    @media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } .top-nav { flex-direction: column; gap: 20px; text-align: center; } .app-panel > div { grid-template-columns: 1fr !important; } }
   </style>
 
   <div class="top-nav">
@@ -66,7 +66,7 @@
 
     <div class="main-grid">
       <div class="panel">
-        <img src="https://lh3.googleusercontent.com/d/1q4Sm-xccG73QA7sw57Z2TxSnjh49duNG" class="feature-img" alt="War Economy">
+        <img src="https://i.imgur.com/TYJS0ab.jpeg" class="feature-img" alt="Homefront Ops">
         <div class="panel-body">
           <h3 class="minmatar-font" style="color:#fff;">Homefront Ops</h3>
           <p style="color:#888; font-size: 14px;">High-speed economic wings. We ensure the SRP wallet is always full.</p>
@@ -74,15 +74,15 @@
       </div>
 
       <div class="panel">
-        <img src="https://lh3.googleusercontent.com/d/1f125lkW085Aw8nCVdstRWwWUw0oGXSUI" class="feature-img" alt="Exploration">
+        <img src="https://i.imgur.com/W2U2L4h.jpg" class="feature-img" alt="DED Hunting">
         <div class="panel-body">
           <h3 class="minmatar-font" style="color:#fff;">DED Hunting</h3>
-          <p style="color:#888; font-size: 14px;">Hunting high-tier combat sites and securing deadspace technology.</p>
+          <p style="color:#888; font-size: 14px;">Securing deadspace technology and high-tier combat rewards.</p>
         </div>
       </div>
 
       <div class="panel">
-        <img src="https://lh3.googleusercontent.com/d/1cZor_BxlVIP-N4psTJq-NWW306X_92kw" class="feature-img" alt="Main Fleet">
+        <img src="https://i.imgur.com/oa4JQMG.png" class="feature-img" alt="Main Fleet">
         <div class="panel-body">
           <h3 class="minmatar-font" style="color:#fff;">Alliance Fleet</h3>
           <p style="color:#888; font-size: 14px;">Faction Warfare Supremacy. Official Fleets every Saturday at 01:00 EVE Time.</p>
@@ -94,11 +94,12 @@
       <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;">
         <div>
           <h2 class="minmatar-font" style="font-size: 32px; color: #fff; margin-bottom: 20px;">SECURE ENLISTMENT</h2>
-          <p style="color: #888; margin-bottom: 25px;">Are you a new pilot? Use the "Claim SP" button above to start with 1 million free skill points before joining.</p>
-          <ul style="color: #dc2626; font-weight: 700; list-style: none; padding: 0; line-height: 2;">
-            <li>> Saturday Deployment: 01:00 EVE</li>
-            <li>> Active Homefront PVE Wings</li>
-            <li>> Full SRP Coverage</li>
+          <p style="color: #888; margin-bottom: 25px;">The Unbound serve no masters. Join the syndicate and push back the Empire.</p>
+          <ul style="color: #dc2626; font-weight: 700; list-style: none; padding: 0; line-height: 2; font-size: 13px;">
+            <li>> THE CHAIN: Discipline is our only strength.</li>
+            <li>> SILENCE: Coordination is our edge.</li>
+            <li>> LIBERTY: We fight for the Unbound.</li>
+            <li>> SACRIFICE: A ship lost is a price we pay.</li>
           </ul>
         </div>
         <form id="masterBzsForm">
