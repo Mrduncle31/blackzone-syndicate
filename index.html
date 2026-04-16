@@ -206,12 +206,79 @@
     .mini label { display: block; font-size: 11px; color: #999; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
     .mini strong { color: #fff; font-size: 15px; }
 
-    .killboard-wrap { overflow: hidden; background: linear-gradient(180deg, rgba(18,18,20,.98), rgba(9,9,10,.98)); border: 1px solid rgba(220,38,38,.18); box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03); }
-    .killboard-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
-    .killboard-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .killboard-wrap {
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(16,16,18,.98), rgba(8,8,10,.98)),
+        radial-gradient(circle at top right, rgba(220,38,38,.12), transparent 34%);
+      border: 1px solid rgba(220,38,38,.18);
+      box-shadow: 0 28px 70px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .killboard-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .killboard-top h3 { margin: 0 0 10px; font-size: 30px; }
+    .killboard-sub { max-width: 720px; color: #c9cbd2; margin: 0; }
+    .killboard-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
     .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); color: #d7d9df; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .pill.live::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #dc2626; box-shadow: 0 0 10px rgba(220,38,38,.85); }
-    .killboard-frame { position: relative; overflow: hidden; border-radius: 24px; border: 1px solid rgba(220,38,38,.28); background: radial-gradient(circle at top, rgba(220,38,38,.10), transparent 35%), #090909; min-height: 860px; }
+    .killboard-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin: 4px 0 18px; }
+    .killboard-stat {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    }
+    .killboard-stat label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #8e93a0;
+    }
+    .killboard-stat strong { color: #fff; font-size: 16px; }
+    .killboard-shell {
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid rgba(220,38,38,.24);
+      background: rgba(7,7,8,.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .killboard-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    }
+    .killboard-toolbar-left { display: flex; align-items: center; gap: 12px; }
+    .killboard-dots { display: inline-flex; gap: 7px; }
+    .killboard-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .killboard-dots span:first-child { background: rgba(220,38,38,.88); }
+    .killboard-toolbar-title { color: #fff; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
+    .killboard-toolbar-right { display: inline-flex; align-items: center; gap: 10px; color: #a3a7b3; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .killboard-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 0 26px 26px;
+      background: radial-gradient(circle at top, rgba(220,38,38,.08), transparent 30%), #090909;
+      min-height: 860px;
+    }
     .killboard-frame iframe { width: 100%; min-height: 860px; border: 0; display: block; background: #090909; }
     .note { color: #9fa3af; font-size: 13px; margin-top: 12px; }
 
@@ -243,6 +310,8 @@
     @media (max-width: 1100px) {
       .hero-grid, .about-grid, .ceo-wrap, .recruit-wrap { grid-template-columns: 1fr; }
       .hero-stats, .grid-3, .grid-2, .offer-grid, .mini-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .killboard-stats { grid-template-columns: 1fr; }
+      .killboard-toolbar-right { width: 100%; justify-content: space-between; }
       .killboard-frame, .killboard-frame iframe { min-height: 700px; }
     }
     @media (max-width: 760px) {
@@ -253,6 +322,8 @@
       .actions { width: 100%; }
       .btn { flex: 1 1 auto; }
       .step { grid-template-columns: 1fr; }
+      .killboard-top h3 { font-size: 24px; }
+      .killboard-toolbar { padding: 14px; }
       .killboard-frame, .killboard-frame iframe { min-height: 560px; }
     }
   </style>
@@ -480,20 +551,38 @@
 <div class="card pad killboard-wrap">
 <div class="killboard-top">
 <div>
-<strong class="orbitron" style="display:block; font-size: 14px; color:#fff; margin-bottom: 6px;">Blackzone Syndicate // Kills Only</strong>
+<h3 class="orbitron">Combat Record</h3>
+<p class="killboard-sub">A cleaner live view of Blackzone Syndicate corporation kills, framed like an operations panel instead of a raw embed.</p>
 <div class="killboard-meta">
 <span class="pill live">Live Feed</span>
 <span class="pill">Corp Kills Only</span>
-<span class="pill">zKillboard</span>
+<span class="pill">zKillboard Source</span>
 </div>
 </div>
 <div class="actions">
-<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/streambox/" rel="noopener" target="_blank">Open Live Feed</a>
-<a class="btn btn-primary orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Corp Kills</a>
+<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/streambox/" rel="noopener" target="_blank">Open Feed</a>
+<a class="btn btn-primary orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Killboard</a>
+</div>
+</div>
+<div class="killboard-stats">
+<div class="killboard-stat"><label>Feed Scope</label><strong>Corporation Kills</strong></div>
+<div class="killboard-stat"><label>Display Mode</label><strong>Live Stream</strong></div>
+<div class="killboard-stat"><label>Corporation ID</label><strong>98831285</strong></div>
+</div>
+<div class="killboard-shell">
+<div class="killboard-toolbar">
+<div class="killboard-toolbar-left">
+<div class="killboard-dots"><span></span><span></span><span></span></div>
+<div class="killboard-toolbar-title orbitron">Blackzone Syndicate Tactical Feed</div>
+</div>
+<div class="killboard-toolbar-right">
+<span class="pill live">Monitoring</span>
+<span>Recent Kill Activity</span>
 </div>
 </div>
 <div class="killboard-frame">
 <iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/streambox/" title="Blackzone Syndicate Corporation Kills Only Feed"></iframe>
+</div>
 </div>
 </div>
 </div>
