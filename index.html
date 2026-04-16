@@ -206,10 +206,13 @@
     .mini label { display: block; font-size: 11px; color: #999; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
     .mini strong { color: #fff; font-size: 15px; }
 
-    .killboard-wrap { overflow: hidden; }
-    .killboard-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
-    .killboard-frame { overflow: hidden; border-radius: 20px; border: 1px solid rgba(255,255,255,.08); background: #090909; min-height: 760px; }
-    .killboard-frame iframe { width: 100%; min-height: 760px; border: 0; display: block; background: #090909; }
+    .killboard-wrap { overflow: hidden; background: linear-gradient(180deg, rgba(18,18,20,.98), rgba(9,9,10,.98)); border: 1px solid rgba(220,38,38,.18); box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03); }
+    .killboard-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+    .killboard-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); color: #d7d9df; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .pill.live::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #dc2626; box-shadow: 0 0 10px rgba(220,38,38,.85); }
+    .killboard-frame { position: relative; overflow: hidden; border-radius: 24px; border: 1px solid rgba(220,38,38,.28); background: radial-gradient(circle at top, rgba(220,38,38,.10), transparent 35%), #090909; min-height: 860px; }
+    .killboard-frame iframe { width: 100%; min-height: 860px; border: 0; display: block; background: #090909; }
     .note { color: #9fa3af; font-size: 13px; margin-top: 12px; }
 
     .recruit-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: 22px; }
@@ -240,7 +243,7 @@
     @media (max-width: 1100px) {
       .hero-grid, .about-grid, .ceo-wrap, .recruit-wrap { grid-template-columns: 1fr; }
       .hero-stats, .grid-3, .grid-2, .offer-grid, .mini-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .killboard-frame, .killboard-frame iframe { min-height: 620px; }
+      .killboard-frame, .killboard-frame iframe { min-height: 700px; }
     }
     @media (max-width: 760px) {
       .hero-card { padding: 56px 22px 26px; }
@@ -250,7 +253,7 @@
       .actions { width: 100%; }
       .btn { flex: 1 1 auto; }
       .step { grid-template-columns: 1fr; }
-      .killboard-frame, .killboard-frame iframe { min-height: 520px; }
+      .killboard-frame, .killboard-frame iframe { min-height: 560px; }
     }
   </style>
 </head>
@@ -289,7 +292,7 @@
 <p class="hero-sub">A combat-focused EVE Online corporation built for pilots who want steady leadership, real activity, and a clear reason to log in. We make ISK with purpose, fund our fights, and keep the pressure on when it matters.</p>
 <div class="actions">
 <a class="btn btn-red orbitron" href="#apply">Apply Now</a>
-<a class="btn btn-outline orbitron" href="#killboard">View Kill Feed</a>
+<a class="btn btn-outline orbitron" href="#killboard">Live Corp Kills</a>
 <a class="btn btn-outline orbitron" href="#ceo">Meet The CEO</a>
 </div>
 </div>
@@ -477,17 +480,21 @@
 <div class="card pad killboard-wrap">
 <div class="killboard-top">
 <div>
-<strong class="orbitron" style="display:block; font-size: 14px; color:#fff; margin-bottom: 6px;">Blackzone Syndicate Kill Feed</strong>
-
+<strong class="orbitron" style="display:block; font-size: 14px; color:#fff; margin-bottom: 6px;">Blackzone Syndicate // Kills Only</strong>
+<div class="killboard-meta">
+<span class="pill live">Live Feed</span>
+<span class="pill">Corp Kills Only</span>
+<span class="pill">zKillboard</span>
+</div>
 </div>
 <div class="actions">
-<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Corp Kills</a>
+<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/streambox/" rel="noopener" target="_blank">Open Live Feed</a>
+<a class="btn btn-primary orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Corp Kills</a>
 </div>
 </div>
-<div class="killboard-frame" style="min-height: 220px;">
-<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" style="min-height:220px;" src="https://zkillboard.com/corporation/98831285/streambox/" title="Blackzone Syndicate Corporation Kill Feed"></iframe>
+<div class="killboard-frame">
+<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/streambox/" title="Blackzone Syndicate Corporation Kills Only Feed"></iframe>
 </div>
-<p class="note">If the embedded feed is blank, zKillboard's StreamBox only shows recent killmails and updates about once per minute. The button above still opens the full corp kills page directly.</p>
 </div>
 </div>
 </section>
