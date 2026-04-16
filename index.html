@@ -545,43 +545,23 @@
 <div class="shell">
 <div class="section-head">
 <div class="section-kicker">zKillboard</div>
-<h2 class="orbitron">Corporation Kill Feed</h2>
-
+<h2 class="orbitron">Corporation Kills</h2>
 </div>
-<div class="card pad killboard-wrap">
-<div class="killboard-top">
+<div class="card kill-feed-panel">
+<div class="kill-feed-head">
 <div>
-<h3 class="orbitron">Combat Record</h3>
-<p class="killboard-sub">A cleaner live view of Blackzone Syndicate corporation kills, framed like an operations panel instead of a raw embed.</p>
-<div class="killboard-meta">
-<span class="pill live">Live Feed</span>
-<span class="pill">Corp Kills Only</span>
-<span class="pill">zKillboard Source</span>
-</div>
+<h3 class="orbitron">Recent Kills</h3>
+<p class="kill-feed-note">Click any ship image to open that kill on zKillboard.</p>
+<div class="kill-feed-state"><span class="dot"></span><span id="killFeedStatus">Loading recent killmails</span></div>
 </div>
 <div class="actions">
-<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/streambox/" rel="noopener" target="_blank">Open Feed</a>
-<a class="btn btn-primary orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Killboard</a>
+<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open zKill</a>
 </div>
 </div>
-<div class="killboard-stats">
-<div class="killboard-stat"><label>Feed Scope</label><strong>Corporation Kills</strong></div>
-<div class="killboard-stat"><label>Display Mode</label><strong>Live Stream</strong></div>
-<div class="killboard-stat"><label>Corporation ID</label><strong>98831285</strong></div>
-</div>
-<div class="killboard-shell">
-<div class="killboard-toolbar">
-<div class="killboard-toolbar-left">
-<div class="killboard-dots"><span></span><span></span><span></span></div>
-<div class="killboard-toolbar-title orbitron">Blackzone Syndicate Tactical Feed</div>
-</div>
-<div class="killboard-toolbar-right">
-<span class="pill live">Monitoring</span>
-<span>Recent Kill Activity</span>
-</div>
-</div>
-<div class="killboard-frame">
-<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/streambox/" title="Blackzone Syndicate Corporation Kills Only Feed"></iframe>
+<div class="kill-feed-grid" id="killFeedGrid" aria-live="polite"></div>
+<div class="kill-feed-fallback" id="killFeedFallback" hidden>
+<div class="kill-stream-frame">
+<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/streambox/" title="Blackzone Syndicate Corporation Kills Feed"></iframe>
 </div>
 </div>
 </div>
@@ -670,6 +650,143 @@
 
     setInterval(updateBzsClocks, 1000);
     updateBzsClocks();
+
+    const killFeedGrid = document.getElementById('killFeedGrid');
+    const killFeedFallback = document.getElementById('killFeedFallback');
+    const killFeedStatus = document.getElementById('killFeedStatus');
+    const corpKillboardId = 98831285;
+
+    function renderKillPlaceholders() {
+      if (!killFeedGrid) return;
+      killFeedGrid.innerHTML = Array.from({ length: 6 }).map(() => `
+        <div class="kill-placeholder">
+          <div class="kill-placeholder-top"></div>
+          <div class="kill-placeholder-copy">
+            <div class="kill-line short"></div>
+            <div class="kill-line"></div>
+            <div class="kill-line mid"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function formatKillValue(value) {
+      const num = Number(value);
+      if (!Number.isFinite(num) || num <= 0) return 'Value unavailable';
+      if (num >= 1e9) return `${(num / 1e9).toFixed(2).replace(/\.00$/, '')}b ISK`;
+      if (num >= 1e6) return `${(num / 1e6).toFixed(2).replace(/\.00$/, '')}m ISK`;
+      if (num >= 1e3) return `${(num / 1e3).toFixed(1).replace(/\.0$/, '')}k ISK`;
+      return `${Math.round(num).toLocaleString()} ISK`;
+    }
+
+    function formatKillTime(value) {
+      if (!value) return 'Recent';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return 'Recent';
+      return date.toLocaleString([], {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+    }
+
+    function killShipImage(typeId) {
+      return `https://images.evetech.net/types/${typeId || 1}/render?size=512`;
+    }
+
+    function killShipIcon(typeId) {
+      return `https://images.evetech.net/types/${typeId || 1}/icon?size=256`;
+    }
+
+    function getKillId(item) {
+      return item.killmail_id ?? item.killmailId ?? item.killID ?? item.id;
+    }
+
+    function getKillTime(item) {
+      return item.killmail_time ?? item.killmailTime ?? item.killTime;
+    }
+
+    function getKillTypeId(item) {
+      return item?.victim?.ship_type_id ?? item?.victim?.shipTypeID ?? item.ship_type_id ?? item.shipTypeID ?? 1;
+    }
+
+    function getKillSystemId(item) {
+      return item.solar_system_id ?? item.solarSystemID ?? item?.zkb?.locationID ?? null;
+    }
+
+    function getKillAttackers(item) {
+      return Array.isArray(item.attackers) ? item.attackers.length : null;
+    }
+
+    function getKillValue(item) {
+      return item?.zkb?.totalValue ?? item?.zkb?.total_value ?? item.totalValue ?? null;
+    }
+
+    function renderKillCards(items) {
+      if (!killFeedGrid) return;
+      killFeedGrid.innerHTML = items.map((item) => {
+        const killId = getKillId(item);
+        const typeId = getKillTypeId(item);
+        const systemId = getKillSystemId(item);
+        const attackers = getKillAttackers(item);
+        const value = getKillValue(item);
+        const time = getKillTime(item);
+        const killHref = killId ? `https://zkillboard.com/kill/${killId}/` : `https://zkillboard.com/corporation/${corpKillboardId}/kills/`;
+        const title = killId ? `Killmail #${killId}` : 'Corporation Killmail';
+        const sub = [
+          systemId ? `System ${systemId}` : null,
+          attackers ? `${attackers} attackers` : null,
+          formatKillTime(time)
+        ].filter(Boolean).join(' • ');
+
+        return `
+          <article class="kill-tile">
+            <a class="kill-thumb" href="${killHref}" target="_blank" rel="noopener">
+              <img src="${killShipImage(typeId)}" alt="Ship render for killmail ${killId || ''}" loading="lazy" onerror="this.onerror=null;this.src='${killShipIcon(typeId)}';" />
+              <span class="kill-link-chip orbitron">Open Kill</span>
+            </a>
+            <div class="kill-copy">
+              <div class="kill-label orbitron">Corp Kill</div>
+              <strong>${title}</strong>
+              <div class="kill-sub">${sub || 'Recent corporation kill'}</div>
+              <div class="kill-value"><span>${formatKillValue(value)}</span><span>zKillboard</span></div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function loadKillFeed() {
+      if (!killFeedGrid || !killFeedFallback || !killFeedStatus) return;
+      renderKillPlaceholders();
+      const urls = [
+        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/kills/limit/9/`,
+        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/limit/9/`
+      ];
+
+      for (const url of urls) {
+        try {
+          const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          if (Array.isArray(data) && data.length) {
+            renderKillCards(data.slice(0, 9));
+            killFeedFallback.hidden = true;
+            killFeedStatus.textContent = 'Latest corporation kills';
+            return;
+          }
+        } catch (error) {
+        }
+      }
+
+      killFeedGrid.innerHTML = '<div class="kill-empty">Live card view is unavailable from this host right now, so the page switched to the direct zKill stream below.</div>';
+      killFeedFallback.hidden = false;
+      killFeedStatus.textContent = 'Live zKill stream';
+    }
+
+    loadKillFeed();
+
 
     document.getElementById('masterBzsForm').addEventListener('submit', async (e) => {
       e.preventDefault();
