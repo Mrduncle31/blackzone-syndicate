@@ -282,6 +282,383 @@
     .killboard-frame iframe { width: 100%; min-height: 860px; border: 0; display: block; background: #090909; }
     .note { color: #9fa3af; font-size: 13px; margin-top: 12px; }
 
+
+    .zkill-section {
+      display: block;
+    }
+    .zkill-rail,
+    .kill-feed-panel {
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(12,12,14,.92), rgba(7,7,9,.96)),
+        radial-gradient(circle at top right, rgba(220,38,38,.12), transparent 36%);
+      box-shadow: var(--shadow);
+    }
+    .zkill-rail {
+      padding: 22px;
+      position: sticky;
+      top: 92px;
+    }
+    .zkill-rail .tag {
+      margin-bottom: 14px;
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      border-color: rgba(255,255,255,.08);
+    }
+    .zkill-rail h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+    .zkill-rail p {
+      margin: 0;
+      color: #c9cbd2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .zkill-rail-meta {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 20px;
+    }
+    .zkill-meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.03);
+    }
+    .zkill-meta-row span {
+      color: #969aa6;
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .zkill-meta-row strong {
+      color: #fff;
+      font-size: 13px;
+      text-align: right;
+      letter-spacing: .04em;
+    }
+    .kill-feed-panel {
+      padding: 22px;
+      min-width: 0;
+    }
+    .kill-feed-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .kill-feed-head h3 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      line-height: 1.05;
+    }
+    .kill-feed-note {
+      margin: 0;
+      color: #9ea4b1;
+      font-size: 13px;
+    }
+    .kill-feed-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      color: #d7d9df;
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .kill-feed-state .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #dc2626;
+      box-shadow: 0 0 14px rgba(220,38,38,.8);
+      flex: 0 0 auto;
+    }
+    .kill-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+    .kill-tile,
+    .kill-placeholder,
+    .kill-empty {
+      min-width: 0;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .kill-tile {
+      padding: 12px;
+      display: grid;
+      gap: 12px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .kill-tile:hover {
+      transform: translateY(-2px);
+      border-color: rgba(220,38,38,.28);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+    }
+    .kill-thumb {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: radial-gradient(circle at top, rgba(220,38,38,.14), transparent 38%), rgba(0,0,0,.4);
+      aspect-ratio: 1.18 / 1;
+    }
+    .kill-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .25s ease;
+    }
+    .kill-tile:hover .kill-thumb img { transform: scale(1.04); }
+    .kill-link-chip {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(5,5,5,.84);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #fff;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .kill-copy { min-width: 0; }
+    .kill-label {
+      color: #fda4a4;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .kill-copy strong {
+      display: block;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+      margin-bottom: 6px;
+    }
+    .kill-sub {
+      color: #aab0bc;
+      font-size: 13px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      min-height: 38px;
+    }
+    .kill-value {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: #e4e4e7;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .kill-value span:first-child {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: none;
+      font-size: 14px;
+    }
+    .kill-placeholder { padding: 12px; }
+    .kill-placeholder-top {
+      width: 100%;
+      aspect-ratio: 1.18 / 1;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.12), rgba(255,255,255,.06));
+      background-size: 220% 100%;
+      animation: pulse-slide 1.5s linear infinite;
+    }
+    .kill-placeholder-copy { margin-top: 12px; display: grid; gap: 10px; }
+    .kill-line {
+      height: 11px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,.05), rgba(255,255,255,.12), rgba(255,255,255,.05));
+      background-size: 220% 100%;
+      animation: pulse-slide 1.5s linear infinite;
+    }
+    .kill-line.short { width: 42%; }
+    .kill-line.mid { width: 66%; }
+    @keyframes pulse-slide {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .kill-empty {
+      grid-column: 1 / -1;
+      padding: 20px;
+      color: #d6d9df;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .kill-empty-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .kill-tile {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .kill-tile:hover {
+      transform: translateY(-2px);
+      border-color: rgba(220,38,38,.28);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+    }
+    .kill-thumb {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: radial-gradient(circle at top, rgba(220,38,38,.14), transparent 38%), rgba(0,0,0,.4);
+      min-height: 120px;
+      aspect-ratio: 1 / 1;
+    }
+    .kill-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .25s ease;
+    }
+    .kill-tile:hover .kill-thumb img { transform: scale(1.04); }
+    .kill-link-chip {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(5,5,5,.84);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #fff;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .kill-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      gap: 8px;
+    }
+    .kill-label {
+      color: #fda4a4;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .kill-copy strong {
+      display: block;
+      color: #fff;
+      font-size: 17px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .kill-sub {
+      color: #aab0bc;
+      font-size: 13px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+    .kill-value {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 2px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: #e4e4e7;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .kill-value span:first-child {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: none;
+      font-size: 14px;
+    }
+    .kill-placeholder { padding: 14px; }
+    .kill-placeholder-top {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.12), rgba(255,255,255,.06));
+      background-size: 220% 100%;
+      animation: pulse-slide 1.5s linear infinite;
+    }
+    .kill-placeholder-copy { margin-top: 14px; display: grid; gap: 10px; }
+    .kill-line {
+      height: 11px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,.05), rgba(255,255,255,.12), rgba(255,255,255,.05));
+      background-size: 220% 100%;
+      animation: pulse-slide 1.5s linear infinite;
+    }
+    .kill-line.short { width: 42%; }
+    .kill-line.mid { width: 66%; }
+    @keyframes pulse-slide {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .kill-feed-fallback { margin-top: 18px; }
+    .kill-stream-frame {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.45);
+    }
+    .kill-stream-frame iframe {
+      width: 100%;
+      min-height: 820px;
+      border: 0;
+      display: block;
+      background: #0a0a0a;
+    }
+    .kill-empty {
+      grid-column: 1 / -1;
+      padding: 16px 18px;
+      color: #cfd2d8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
     .recruit-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: 22px; }
     .recruit-box { padding: 28px; border-radius: 24px; border: 1px solid rgba(255,255,255,.08); background: rgba(8,8,8,.82); box-shadow: var(--shadow); }
     .recruit-box h3 { margin-top: 0; font-size: 28px; }
@@ -313,6 +690,9 @@
       .killboard-stats { grid-template-columns: 1fr; }
       .killboard-toolbar-right { width: 100%; justify-content: space-between; }
       .killboard-frame, .killboard-frame iframe { min-height: 700px; }
+      .zkill-section { grid-template-columns: 1fr; }
+      .zkill-rail { position: static; top: auto; }
+      .kill-feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 760px) {
       .hero-card { padding: 56px 22px 26px; }
@@ -325,6 +705,11 @@
       .killboard-top h3 { font-size: 24px; }
       .killboard-toolbar { padding: 14px; }
       .killboard-frame, .killboard-frame iframe { min-height: 560px; }
+      .kill-feed-panel, .zkill-rail { padding: 18px; }
+      .kill-feed-grid { grid-template-columns: 1fr; }
+      .kill-feed-grid { grid-template-columns: 1fr; }
+      .kill-tile { grid-template-columns: 96px minmax(0, 1fr); }
+      .kill-stream-frame iframe { min-height: 620px; }
     }
   </style>
 </head>
@@ -543,27 +928,13 @@
 </section>
 <section id="killboard">
 <div class="shell">
-<div class="section-head">
-<div class="section-kicker">zKillboard</div>
-<h2 class="orbitron">Corporation Kills</h2>
-</div>
-<div class="card kill-feed-panel">
+<div class="kill-feed-panel">
 <div class="kill-feed-head">
 <div>
-<h3 class="orbitron">Recent Kills</h3>
-<p class="kill-feed-note">Click any ship image to open that kill on zKillboard.</p>
-<div class="kill-feed-state"><span class="dot"></span><span id="killFeedStatus">Loading recent killmails</span></div>
-</div>
-<div class="actions">
-<a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open zKill</a>
+<h3 class="orbitron">Recent Killmails</h3>
 </div>
 </div>
-<div class="kill-feed-grid" id="killFeedGrid" aria-live="polite"></div>
-<div class="kill-feed-fallback" id="killFeedFallback" hidden>
-<div class="kill-stream-frame">
-<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/streambox/" title="Blackzone Syndicate Corporation Kills Feed"></iframe>
-</div>
-</div>
+<div aria-live="polite" class="kill-feed-grid" id="killFeedGrid"></div>
 </div>
 </div>
 </section>
@@ -652,8 +1023,9 @@
     updateBzsClocks();
 
     const killFeedGrid = document.getElementById('killFeedGrid');
-    const killFeedFallback = document.getElementById('killFeedFallback');
     const killFeedStatus = document.getElementById('killFeedStatus');
+    const killFeedSidebarStatus = document.getElementById('killFeedSidebarStatus');
+    const killFeedCounter = document.getElementById('killFeedCounter');
     const corpKillboardId = 98831285;
 
     function renderKillPlaceholders() {
@@ -757,12 +1129,25 @@
       }).join('');
     }
 
+    function renderKillFallback() {
+      if (!killFeedGrid) return;
+      killFeedGrid.innerHTML = `
+        <div class="kill-empty">
+          Killmails could not load here right now.
+          <div class="kill-empty-actions">
+            <a class="btn btn-red orbitron" href="https://zkillboard.com/corporation/${corpKillboardId}/kills/" target="_blank" rel="noopener">Open Recent Kills</a>
+          </div>
+        </div>
+      `;
+    }
+
     async function loadKillFeed() {
-      if (!killFeedGrid || !killFeedFallback || !killFeedStatus) return;
+      if (!killFeedGrid) return;
       renderKillPlaceholders();
+
       const urls = [
-        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/kills/limit/9/`,
-        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/limit/9/`
+        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/kills/limit/6/`,
+        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/limit/6/`
       ];
 
       for (const url of urls) {
@@ -771,18 +1156,21 @@
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
           if (Array.isArray(data) && data.length) {
-            renderKillCards(data.slice(0, 9));
-            killFeedFallback.hidden = true;
-            killFeedStatus.textContent = 'Latest corporation kills';
+            const items = data.slice(0, 6);
+            renderKillCards(items);
+            if (killFeedStatus) killFeedStatus.textContent = 'Recent corporation kills';
+            if (killFeedSidebarStatus) killFeedSidebarStatus.textContent = 'Live';
+            if (killFeedCounter) killFeedCounter.textContent = `${items.length} recent`;
             return;
           }
         } catch (error) {
         }
       }
 
-      killFeedGrid.innerHTML = '<div class="kill-empty">Live card view is unavailable from this host right now, so the page switched to the direct zKill stream below.</div>';
-      killFeedFallback.hidden = false;
-      killFeedStatus.textContent = 'Live zKill stream';
+      renderKillFallback();
+      if (killFeedStatus) killFeedStatus.textContent = 'Direct zKill links ready';
+      if (killFeedSidebarStatus) killFeedSidebarStatus.textContent = 'Link mode';
+      if (killFeedCounter) killFeedCounter.textContent = 'Open on zKill';
     }
 
     loadKillFeed();
