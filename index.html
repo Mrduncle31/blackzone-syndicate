@@ -345,8 +345,10 @@
       letter-spacing: .04em;
     }
     .kill-feed-panel {
-      padding: 22px;
+      padding: 18px;
       min-width: 0;
+      max-width: 980px;
+      margin: 0 auto;
     }
     .kill-feed-head {
       display: flex;
@@ -637,16 +639,18 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-    .kill-feed-fallback { margin-top: 18px; }
+    .kill-feed-fallback { margin-top: 12px; }
     .kill-stream-frame {
       overflow: hidden;
-      border-radius: 20px;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.08);
       background: rgba(0,0,0,.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
     }
     .kill-stream-frame iframe {
       width: 100%;
-      min-height: 820px;
+      min-height: 520px;
+      height: 520px;
       border: 0;
       display: block;
       background: #0a0a0a;
@@ -689,7 +693,7 @@
       .hero-stats, .grid-3, .grid-2, .offer-grid, .mini-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .killboard-stats { grid-template-columns: 1fr; }
       .killboard-toolbar-right { width: 100%; justify-content: space-between; }
-      .killboard-frame, .killboard-frame iframe { min-height: 700px; }
+      .killboard-frame, .killboard-frame iframe { min-height: 560px; }
       .zkill-section { grid-template-columns: 1fr; }
       .zkill-rail { position: static; top: auto; }
       .kill-feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -709,7 +713,7 @@
       .kill-feed-grid { grid-template-columns: 1fr; }
       .kill-feed-grid { grid-template-columns: 1fr; }
       .kill-tile { grid-template-columns: 96px minmax(0, 1fr); }
-      .kill-stream-frame iframe { min-height: 620px; }
+      .kill-stream-frame iframe { min-height: 420px; height: 420px; }
     }
   </style>
 </head>
@@ -934,7 +938,15 @@
 <h3 class="orbitron">Recent Killmails</h3>
 </div>
 </div>
-<div aria-live="polite" class="kill-feed-grid" id="killFeedGrid"></div>
+<div class="kill-stream-frame">
+<iframe
+  src="https://zkillboard.com/corporation/98831285/kills/streambox/"
+  title="Blackzone Syndicate recent killmails"
+  loading="lazy"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen>
+</iframe>
+</div>
 </div>
 </div>
 </section>
@@ -1021,159 +1033,6 @@
 
     setInterval(updateBzsClocks, 1000);
     updateBzsClocks();
-
-    const killFeedGrid = document.getElementById('killFeedGrid');
-    const killFeedStatus = document.getElementById('killFeedStatus');
-    const killFeedSidebarStatus = document.getElementById('killFeedSidebarStatus');
-    const killFeedCounter = document.getElementById('killFeedCounter');
-    const corpKillboardId = 98831285;
-
-    function renderKillPlaceholders() {
-      if (!killFeedGrid) return;
-      killFeedGrid.innerHTML = Array.from({ length: 6 }).map(() => `
-        <div class="kill-placeholder">
-          <div class="kill-placeholder-top"></div>
-          <div class="kill-placeholder-copy">
-            <div class="kill-line short"></div>
-            <div class="kill-line"></div>
-            <div class="kill-line mid"></div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function formatKillValue(value) {
-      const num = Number(value);
-      if (!Number.isFinite(num) || num <= 0) return 'Value unavailable';
-      if (num >= 1e9) return `${(num / 1e9).toFixed(2).replace(/\.00$/, '')}b ISK`;
-      if (num >= 1e6) return `${(num / 1e6).toFixed(2).replace(/\.00$/, '')}m ISK`;
-      if (num >= 1e3) return `${(num / 1e3).toFixed(1).replace(/\.0$/, '')}k ISK`;
-      return `${Math.round(num).toLocaleString()} ISK`;
-    }
-
-    function formatKillTime(value) {
-      if (!value) return 'Recent';
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return 'Recent';
-      return date.toLocaleString([], {
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit'
-      });
-    }
-
-    function killShipImage(typeId) {
-      return `https://images.evetech.net/types/${typeId || 1}/render?size=512`;
-    }
-
-    function killShipIcon(typeId) {
-      return `https://images.evetech.net/types/${typeId || 1}/icon?size=256`;
-    }
-
-    function getKillId(item) {
-      return item.killmail_id ?? item.killmailId ?? item.killID ?? item.id;
-    }
-
-    function getKillTime(item) {
-      return item.killmail_time ?? item.killmailTime ?? item.killTime;
-    }
-
-    function getKillTypeId(item) {
-      return item?.victim?.ship_type_id ?? item?.victim?.shipTypeID ?? item.ship_type_id ?? item.shipTypeID ?? 1;
-    }
-
-    function getKillSystemId(item) {
-      return item.solar_system_id ?? item.solarSystemID ?? item?.zkb?.locationID ?? null;
-    }
-
-    function getKillAttackers(item) {
-      return Array.isArray(item.attackers) ? item.attackers.length : null;
-    }
-
-    function getKillValue(item) {
-      return item?.zkb?.totalValue ?? item?.zkb?.total_value ?? item.totalValue ?? null;
-    }
-
-    function renderKillCards(items) {
-      if (!killFeedGrid) return;
-      killFeedGrid.innerHTML = items.map((item) => {
-        const killId = getKillId(item);
-        const typeId = getKillTypeId(item);
-        const systemId = getKillSystemId(item);
-        const attackers = getKillAttackers(item);
-        const value = getKillValue(item);
-        const time = getKillTime(item);
-        const killHref = killId ? `https://zkillboard.com/kill/${killId}/` : `https://zkillboard.com/corporation/${corpKillboardId}/kills/`;
-        const title = killId ? `Killmail #${killId}` : 'Corporation Killmail';
-        const sub = [
-          systemId ? `System ${systemId}` : null,
-          attackers ? `${attackers} attackers` : null,
-          formatKillTime(time)
-        ].filter(Boolean).join(' • ');
-
-        return `
-          <article class="kill-tile">
-            <a class="kill-thumb" href="${killHref}" target="_blank" rel="noopener">
-              <img src="${killShipImage(typeId)}" alt="Ship render for killmail ${killId || ''}" loading="lazy" onerror="this.onerror=null;this.src='${killShipIcon(typeId)}';" />
-              <span class="kill-link-chip orbitron">Open Kill</span>
-            </a>
-            <div class="kill-copy">
-              <div class="kill-label orbitron">Corp Kill</div>
-              <strong>${title}</strong>
-              <div class="kill-sub">${sub || 'Recent corporation kill'}</div>
-              <div class="kill-value"><span>${formatKillValue(value)}</span><span>zKillboard</span></div>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function renderKillFallback() {
-      if (!killFeedGrid) return;
-      killFeedGrid.innerHTML = `
-        <div class="kill-empty">
-          Killmails could not load here right now.
-          <div class="kill-empty-actions">
-            <a class="btn btn-red orbitron" href="https://zkillboard.com/corporation/${corpKillboardId}/kills/" target="_blank" rel="noopener">Open Recent Kills</a>
-          </div>
-        </div>
-      `;
-    }
-
-    async function loadKillFeed() {
-      if (!killFeedGrid) return;
-      renderKillPlaceholders();
-
-      const urls = [
-        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/kills/limit/6/`,
-        `https://zkillboard.com/api/kills/corporationID/${corpKillboardId}/limit/6/`
-      ];
-
-      for (const url of urls) {
-        try {
-          const response = await fetch(url, { headers: { 'Accept': 'application/json' } });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
-          if (Array.isArray(data) && data.length) {
-            const items = data.slice(0, 6);
-            renderKillCards(items);
-            if (killFeedStatus) killFeedStatus.textContent = 'Recent corporation kills';
-            if (killFeedSidebarStatus) killFeedSidebarStatus.textContent = 'Live';
-            if (killFeedCounter) killFeedCounter.textContent = `${items.length} recent`;
-            return;
-          }
-        } catch (error) {
-        }
-      }
-
-      renderKillFallback();
-      if (killFeedStatus) killFeedStatus.textContent = 'Direct zKill links ready';
-      if (killFeedSidebarStatus) killFeedSidebarStatus.textContent = 'Link mode';
-      if (killFeedCounter) killFeedCounter.textContent = 'Open on zKill';
-    }
-
-    loadKillFeed();
 
 
     document.getElementById('masterBzsForm').addEventListener('submit', async (e) => {
