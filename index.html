@@ -471,23 +471,23 @@
 <div class="shell">
 <div class="section-head">
 <div class="section-kicker">zKillboard</div>
-<h2 class="orbitron">Corporation Kills Only</h2>
-<p>This feed is pointed at the corporation kills page only, so visitors see your active wins instead of the full board.</p>
+<h2 class="orbitron">Corporation Kill Feed</h2>
+<p>The full zKill kills page can refuse iframe embeds on some sites, so this section uses zKillboard's StreamBox-style live killmail display instead.</p>
 </div>
 <div class="card pad killboard-wrap">
 <div class="killboard-top">
 <div>
 <strong class="orbitron" style="display:block; font-size: 14px; color:#fff; margin-bottom: 6px;">Blackzone Syndicate Kill Feed</strong>
-<span style="color:#bdbdc5; font-size: 14px;">Live view of the corp kills page.</span>
+<span style="color:#bdbdc5; font-size: 14px;">Recent corporation killmails in an embed-friendly layout.</span>
 </div>
 <div class="actions">
 <a class="btn btn-outline orbitron" href="https://zkillboard.com/corporation/98831285/kills/" rel="noopener" target="_blank">Open Corp Kills</a>
 </div>
 </div>
-<div class="killboard-frame">
-<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://zkillboard.com/corporation/98831285/kills/" title="Blackzone Syndicate Corporation Kills"></iframe>
+<div class="killboard-frame" style="min-height: 220px;">
+<iframe loading="lazy" referrerpolicy="strict-origin-when-cross-origin" style="min-height:220px;" src="https://zkillboard.com/corporation/98831285/streambox/" title="Blackzone Syndicate Corporation Kill Feed"></iframe>
 </div>
-<p class="note">If your host or browser blocks the embedded frame, the button above still opens the corp kills page directly.</p>
+<p class="note">If the embedded feed is blank, zKillboard's StreamBox only shows recent killmails and updates about once per minute. The button above still opens the full corp kills page directly.</p>
 </div>
 </div>
 </section>
